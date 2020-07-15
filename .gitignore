@@ -1,1 +1,10 @@
-/bin/
+# Binary
+360Project2/bin/**
+
+# Eclipse files
+.classpath
+.project
+360Project2/.classpath
+360Project2/.project
+
+/360Project2/bin/

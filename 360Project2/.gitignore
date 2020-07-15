@@ -1,7 +1,0 @@
-# Binary
-bin/**
-
-# Eclipse files
-.classpath
-.project
-/bin/
