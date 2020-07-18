@@ -1,5 +1,19 @@
 # MEETING LOG
 
+## [07-17-2020]
+- **Done**
+	- Job assignment:
+		1. Hung Vu: Gui's model and controller.
+		2. Shane and Tomy: Sensors and ISS software.
+		3. Khue and My: GUI's view.
+	- Approach for this project:
+		1. Sensors and ISS software will operate on their own threads.
+		2. GUI's controller will receive and deserialize data, then store them into GUI's model. GUI's view will be updated accordingly.
+		3. Network interface **will not** be used.
+- **Not done**
+	- Buttons' secondary functions implementation plan.
+	- Testing plan.
+
 ## [07-13-2020]
 - **Done**
     - Setting up working environment for group members (local repo).
