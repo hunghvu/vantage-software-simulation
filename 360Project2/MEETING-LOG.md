@@ -4,12 +4,13 @@
 - **Done**
 	- Job assignment:
 		1. Hung Vu: Gui's model and controller.
-		2. Shane and Tomy: Sensors and ISS software.
+		2. Shane and Tommy: Sensors and ISS software.
 		3. Khue and My: GUI's view.
 	- Approach for this project:
 		1. Sensors and ISS software will operate on their own threads.
 		2. GUI's controller will receive and deserialize data, then store them into GUI's model. GUI's view will be updated accordingly.
 		3. Network interface **will not** be used.
+		4. GUI section will run on its own threads.
 - **Not done**
 	- Buttons' secondary functions implementation plan.
 	- Testing plan.
