@@ -3,15 +3,29 @@ package gui.view;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel that can visually represent current weather, moon phase, time and date.
+ * Weather icon can be updated based on current weather data. Moon phase will
+ * just be static first quarter.
+ *
+ * @author My Huynh
+ */
 public class WeatherPanel extends JPanel {
     private static final Dimension BOARD_SIZE = new Dimension(700, 100);
-    private static Font dataFontMed = new Font("Courier New", Font.BOLD, 30);
+    private static final Font dataFontMed = new Font("Courier New", Font.BOLD, 20);
 
-    private JLabel myWeatherIcon;
-    private JLabel myMoonIcon;
-    private JLabel myTime;
-    private JLabel myDate;
+    /** Label for the weather icon.*/
+    private final JLabel myWeatherIcon;
+    /** Label for the moon icon.*/
+    private final JLabel myMoonIcon;
+    /** Label for the current time.*/
+    private final JLabel myTime;
+    /** Label for the current date.*/
+    private final JLabel myDate;
 
+    /**
+     * Constructs the weather panel
+     */
     public WeatherPanel() {
         super( );
         this.setPreferredSize(BOARD_SIZE);
@@ -22,13 +36,21 @@ public class WeatherPanel extends JPanel {
         myTime = new JLabel( );
         myDate = new JLabel( );
 
-        myMoonIcon.setIcon(new ImageIcon(getClass( ).getResource("/icons/moon.png")));
+        //Initialize moon phase
+        //Moon phase will just be static first quarter
+        myMoonIcon.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/icons/moon.png"))
+                .getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
         determineWeather();
         this.add(myWeatherIcon);
         this.add(myMoonIcon);
 
         findCurrentDateAndTime();
     }
+
+    /**
+     * Collects current date and time
+     */
     public void findCurrentDateAndTime() {
         myDate.setFont(dataFontMed);
         myTime.setFont(dataFontMed);
@@ -54,6 +76,10 @@ public class WeatherPanel extends JPanel {
 
     //method to change the weather icon
     //need to implement a model class to stores data from sensors
+
+    /**
+     * Takes the current weather data and choose an appropriate weather icon
+     */
     public void determineWeather(){
         double exampleTemp = 50.0;
         double exampleHumidity = 80.0;
@@ -79,8 +105,9 @@ public class WeatherPanel extends JPanel {
         if (rain && !cold) {
             weather = "rain";
         }
-
-        myWeatherIcon.setIcon(new ImageIcon(getClass( ).getResource("/icons/"+ weather +".png")));
+        myWeatherIcon.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/icons/"+ weather +".png"))
+                .getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
 
     }
 

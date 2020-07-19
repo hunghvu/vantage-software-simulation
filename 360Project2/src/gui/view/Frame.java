@@ -3,10 +3,13 @@ package gui.view;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * GUI view
+ *
+ * @author My Huynh
+ */
 public class Frame extends JFrame {
     private static final String TITLE = "Wireless Vantage Pro2 Console Receiver";
-
-    private JPanel myPanel;
 
     private WindCompassPanel myWindCompassPanel;
 
@@ -24,9 +27,6 @@ public class Frame extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-
-        myPanel = new JPanel();
-        this.add(myPanel, BorderLayout.NORTH);
         setupGUI();
 
     }
@@ -36,7 +36,7 @@ public class Frame extends JFrame {
         myWeatherPanel = new WeatherPanel();
         myDataPanel = new DataPanel();
         myButtonPanel = new ButtonPanel();
-        myPanel.add(myWeatherPanel);
+        this.add(myWeatherPanel, BorderLayout.NORTH);
     }
 
 
