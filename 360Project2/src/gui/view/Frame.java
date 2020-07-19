@@ -37,6 +37,7 @@ public class Frame extends JFrame {
         myDataPanel = new DataPanel();
         myButtonPanel = new ButtonPanel();
         this.add(myWeatherPanel, BorderLayout.NORTH);
+        this.add(myDataPanel, BorderLayout.SOUTH);
     }
 
 
