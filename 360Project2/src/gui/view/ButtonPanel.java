@@ -1,11 +1,8 @@
 package gui.view;
-
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-
 import javax.swing.*;
-
 import gui.controller.Controller;
+
 /**
  * A class for the console buttons.
  *
@@ -16,25 +13,25 @@ import gui.controller.Controller;
 public class ButtonPanel extends JPanel {
 
     /** Panel dimensions (width, height). */
-    private static final Dimension PANEL_SIZE = new Dimension(300,700);
+    private static final Dimension PANEL_SIZE = new Dimension(300, 700);
     
     /** Prompts to display wind speed in mph. */
-    private JButton myWindSpeedBtn;
+    private final JButton myWindSpeedBtn;
 
     /** Prompts to display wind direction in the compass rose via arrow ticks. */
-    private JButton myWindDirection;
+    private final JButton myWindDirection;
 
     /** Prompts to display outside temperature in °F. */
-    private JButton myTempBtn;
+    private final JButton myTempBtn;
 
     /** Prompts to display outside humidity as a percentage. */
-    private JButton myHumidityBtn;
+    private final JButton myHumidityBtn;
 
     /** Prompts to display the solar radiation in W/m^2. */
-    private JButton mySolarBtn;
+    private final JButton mySolarBtn;
 
     /** Prompts to display the weather forecast icons. */
-    private JButton myForecastBtn;
+    private final JButton myForecastBtn;
     
     /** Sends over deserialized data. Used when implementing ActionListeners. */
     private Controller myController;
