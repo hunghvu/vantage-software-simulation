@@ -55,6 +55,7 @@ public class ButtonPanel extends JPanel {
         setUpPanel();
     }
 
+    /** Method that adds listeners to buttons. */
     private void addListeners() {
         myWindSpeedBtn.addActionListener(theEvent -> {
             
@@ -82,6 +83,7 @@ public class ButtonPanel extends JPanel {
         
     }
 
+    /** Method that sets up panel and adds buttons to panel. */
     private void setUpPanel() {
         setPreferredSize(PANEL_SIZE);
         setVisible(true);
