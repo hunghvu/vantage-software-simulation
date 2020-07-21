@@ -34,7 +34,7 @@ public class ButtonPanel extends JPanel {
     private final JButton myForecastBtn;
     
     /** Sends over deserialized data. Used when implementing ActionListeners. */
-    private Controller myController;
+    //private Controller myController;
 
     /**
      * Constructor that instantiates the buttons.
@@ -42,7 +42,7 @@ public class ButtonPanel extends JPanel {
     public ButtonPanel() {
         super();
         
-        myController = new Controller();
+        //myController = new Controller();
         
         myWindSpeedBtn = new JButton("Wind Speed");
         myWindDirection = new JButton("Wind Direction");
