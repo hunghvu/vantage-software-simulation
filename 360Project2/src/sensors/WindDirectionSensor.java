@@ -10,7 +10,7 @@ import sensors.Sensor;
 public class WindDirectionSensor implements Sensor{
 	
 	/** A data value that can convert to a direction. **/
-	private int myData;
+	private double myData;
 	
 	/** Wind direction. **/
 	private String myDirection;
@@ -32,7 +32,7 @@ public class WindDirectionSensor implements Sensor{
 	}
 	
 	@Override
-	public int getData() {
+	public double getData() {
 		return myData;
 	}
 	
@@ -65,6 +65,11 @@ public class WindDirectionSensor implements Sensor{
 	@Override
 	public String toString() {
 		return "Wind Direction(Cardinal): " + myDirection;
+	}
+	
+	@Override
+	public String getHeader() {
+		return "Wind Direction: ";
 	}
 	
 	@Override

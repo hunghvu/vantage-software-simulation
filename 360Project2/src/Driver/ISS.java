@@ -27,13 +27,19 @@ import sensors.WindSpeedSensor;
  */
 public class ISS implements Serializable, Runnable{
 	/**
-	 * list for sensors
+	 * List for sensors.
 	 */
 	private List<Sensor> mySensors;
 	
+	/**
+	 * List for threads.
+	 */
 	private Set<Thread> myThreads;
 	
-	private Map<String, String> myDataMap = new HashMap<String, String>();
+	/**
+	 * A map for sensors data.
+	 */
+	private Map<String, String> myDataMap;;
 
 	/**
 	 * Constructor for the class
@@ -45,7 +51,7 @@ public class ISS implements Serializable, Runnable{
 		SolarSensor solarSensor = new SolarSensor();
 		WindSpeedSensor windSpeedSensor = new WindSpeedSensor();
 		WindDirectionSensor windDirectionSensor = new WindDirectionSensor();
-		
+		// add all sensors to a list for references
 		mySensors = new ArrayList<Sensor>();
 		mySensors.add(tempSensor);
 		mySensors.add(humiditySensor);
@@ -53,54 +59,36 @@ public class ISS implements Serializable, Runnable{
 		mySensors.add(windSpeedSensor);
 		mySensors.add(windDirectionSensor);
 		
-		// add all sensor threads to the set
+		// set up myDataMap and myThreads
+		myDataMap = new HashMap<String, String>();
 		myThreads = new HashSet<Thread>();
 		for(Sensor s : mySensors) {
 			myThreads.add(new Thread(s));
+			
+			// check is the sensor is WindDirectionSensor
+			if(s.getHeader().equals("Wind Direction: ")) {
+				myDataMap.put(s.getHeader(), ((WindDirectionSensor) s).getDirection() );
+			} else {
+				myDataMap.put(s.getHeader(), String.valueOf(s.getData()));
+			}
 		}
 		// call start() on each threads
 		for(Thread t : myThreads) {
 			t.start();
 		}
-
-		//writeSerializedData(); //serializing class
-		// if there is output device another code should be written here to send out serialized data to the output devices
 	}
 	
 	/**
-	 * get data that is stored in Sensors and return it as a double array
-	 * 
-	 * @return array of data
+	 * Update myDataMap.
 	 */
-	public double[] getSensorData() {
-		double[] list = new double[5];
-		for(int i = 0; i < mySensors.size(); i++) {
-			list[i] = mySensors.get(i).getData();
-		}
-		return list;
-	}
-	
-//	/**
-//	 * update all sensors
-//	 */
-//	public void updateSensors() {
-//		for(Sensor s : mySensors) {
-//			s.updateData();
-//		}
-//	}
-	
-	/**
-	 * @return sensors information
-	 */
-	public String getSensorsInfo() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("----Console Receiver Output----");
+	public void updateMap() {
 		for(Sensor s : mySensors) {
-			sb.append("\n");
-			sb.append(s.toString());
+			if(s.getHeader().equals("Wind Direction: ")) {
+				myDataMap.replace(s.getHeader(), ((WindDirectionSensor) s).getDirection() );
+			} else {
+				myDataMap.replace(s.getHeader(), String.valueOf(s.getData()));
+			}
 		}
-		sb.append("\n");
-		return sb.toString();
 	}
 	
 	/**
@@ -114,19 +102,51 @@ public class ISS implements Serializable, Runnable{
 		FileOutputStream fos = new FileOutputStream(f);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-		for(double data : getSensorData()) {
-			oos.writeObject(data);
+		for(Map.Entry<String, String> e : myDataMap.entrySet()){
+			oos.writeObject(e.getKey() + e.getValue());
 		}
 		oos.close();
 	}
  
-	// Sensors are updating data on threads every 3 seconds, 
-	// to be implement:
-	// -> Store sensors data information to myDataMap every 3 seconds
-	// -> Use data from the HashMap to write information to data.ser text file every 3 seconds
+	/**
+	 * Update myDataMap and write serialize data.
+	 */
 	@Override
 	public void run() {
+		try {
+			updateMap();
+			writeSerializedData();
+			// for testing
+			System.out.println(getSensorsInfo());
+			
+			Thread.sleep(3000L);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		this.run();
+	}
 		
-		
+	/**
+	 * --For testing purposes--
+	 * Prints out the information of mySensors and myDataMap.
+	 * @return sensors information
+	 */
+	public String getSensorsInfo() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("----Console Receiver Output----");
+		System.out.println("Map:");
+		for(Sensor s : mySensors) {
+			sb.append("\n");
+			sb.append(s.toString());
+			// print map
+			System.out.println(s.getHeader() + myDataMap.get(s.getHeader()));
+		}
+		System.out.println();
+		sb.append("\n");
+		return sb.toString();
 	}
 }

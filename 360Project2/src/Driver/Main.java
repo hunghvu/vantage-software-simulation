@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import Driver.ISS;
 import gui.view.Frame;
+import sensors.HumiditySensor;
 
 public class Main {
 
@@ -25,7 +26,12 @@ public class Main {
 //	}
 	private Main() {
 	}
-	public static void main(final String... theArgs) {
+	public static void main(final String... theArgs) throws IOException {
+		ISS iss = new ISS();
+		Thread thread = new Thread(iss);
+		System.out.println("For Testing purposes:");
+		thread.start();
+		
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {

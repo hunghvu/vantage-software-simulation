@@ -5,28 +5,37 @@ import sensors.Sensor;
 public class SolarSensor implements Sensor{
 	
 	/** Watts for solar sensor. **/
-	private int myWatts;
+	private double myWatts;
 	
 	/**
 	 * Constructor.
 	 */
 	public SolarSensor() {
 		myWatts = RANDOM.nextInt(1801);
+		myWatts += RANDOM.nextDouble();
+		myWatts = Math.round(myWatts * 100.0) / 100.0;
 	}
 
 	@Override
-	public int getData() {
+	public double getData() {
 		return myWatts;
 	}
 
 	@Override
 	public void updateData() {
-		myWatts += RANDOM.nextInt(41) - 20;
+		myWatts += RANDOM.nextInt(41) - 19;
+		myWatts += RANDOM.nextDouble();
+		myWatts = Math.round(myWatts * 100.0) / 100.0;
 	}
 
 	@Override
 	public String toString() {
 		return "Solar Radiation(Watts/sq meter): " + myWatts;
+	}
+	
+	@Override
+	public String getHeader() {
+		return "Solar: ";
 	}
 	
 	@Override
@@ -40,4 +49,6 @@ public class SolarSensor implements Sensor{
 		}
 		this.run();
 	}
+	
+
 }

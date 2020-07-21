@@ -10,21 +10,27 @@ import java.util.Random;
  */
 public interface Sensor extends Runnable{
 	/**
-	 * Static random object for the sensors
+	 * Static random object for the sensors.
 	 */
 	static Random RANDOM = new Random();
 	
 	/**
-	 * Method to return data for that specific sensor
-	 * @return the data for the sensor
+	 * Method to return data for that specific sensor.
+	 * @return the data for the sensor.
 	 */
-	public int getData();
+	public double getData();
 	
 	/**
-	 * Update data
+	 * Method to return the header for the sensor.
+	 * @return the header.
+	 */
+	public String getHeader();
+	
+	/**
+	 * Update data.
 	 */
 	public void updateData();
-	
+
 	@Override
 	public void run();
 }

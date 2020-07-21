@@ -10,28 +10,37 @@ import sensors.Sensor;
 public class TemperatureSensor implements Sensor{
 	
 	/** Temperature for temperature sensor. **/
-	private int myTemp;
+	private double myTemp;
 	
 	/**
 	 * Constructor.
 	 */
 	public TemperatureSensor() {
 		myTemp = RANDOM.nextInt(191) - 40;
+		myTemp += RANDOM.nextDouble();
+		myTemp = Math.round(myTemp * 100.0) / 100.0;
 	}
 	
 	@Override
-	public int getData() {
+	public double getData() {
 		return myTemp;
 	}
 
 	@Override
 	public void updateData() {
-		myTemp += RANDOM.nextInt(5) - 2;
+		myTemp += RANDOM.nextInt(5) - 1;
+		myTemp += RANDOM.nextDouble();
+		myTemp = Math.round(myTemp * 100.0) / 100.0;
 	}
 	
 	@Override
 	public String toString() {
 		return "Temperature(F): " + myTemp;
+	}
+	
+	@Override
+	public String getHeader() {
+		return "Temperature: ";
 	}
 	
 	@Override
@@ -45,4 +54,5 @@ public class TemperatureSensor implements Sensor{
 		}
 		this.run();
 	}
+
 }
