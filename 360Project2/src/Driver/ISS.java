@@ -7,7 +7,11 @@ package Driver;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import sensors.HumiditySensor;
 import sensors.Sensor;
@@ -19,13 +23,17 @@ import sensors.WindSpeedSensor;
 /**
  * ISS Class implemented serializable, it will receive data from Sensor class
  * and send it out to serialized data for output devices to use
- * @author Seungku Kim
+ * @author Seungku Kim, Zitao Yu
  */
-public class ISS implements Serializable {
+public class ISS implements Serializable, Runnable{
 	/**
 	 * list for sensors
 	 */
 	private List<Sensor> mySensors;
+	
+	private Set<Thread> myThreads;
+	
+	private Map<String, String> myDataMap = new HashMap<String, String>();
 
 	/**
 	 * Constructor for the class
@@ -45,10 +53,20 @@ public class ISS implements Serializable {
 		mySensors.add(windSpeedSensor);
 		mySensors.add(windDirectionSensor);
 		
+		// add all sensor threads to the set
+		myThreads = new HashSet<Thread>();
+		for(Sensor s : mySensors) {
+			myThreads.add(new Thread(s));
+		}
+		// call start() on each threads
+		for(Thread t : myThreads) {
+			t.start();
+		}
+
 		//writeSerializedData(); //serializing class
 		// if there is output device another code should be written here to send out serialized data to the output devices
 	}
-
+	
 	/**
 	 * get data that is stored in Sensors and return it as a double array
 	 * 
@@ -62,14 +80,14 @@ public class ISS implements Serializable {
 		return list;
 	}
 	
-	/**
-	 * update all sensors
-	 */
-	public void updateSensors() {
-		for(Sensor s : mySensors) {
-			s.updateData();
-		}
-	}
+//	/**
+//	 * update all sensors
+//	 */
+//	public void updateSensors() {
+//		for(Sensor s : mySensors) {
+//			s.updateData();
+//		}
+//	}
 	
 	/**
 	 * @return sensors information
@@ -92,7 +110,7 @@ public class ISS implements Serializable {
 	 */
 	public void writeSerializedData() throws IOException {
 
-		File f = new File("Ser.txt");
+		File f = new File("data.ser");
 		FileOutputStream fos = new FileOutputStream(f);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 
@@ -100,5 +118,15 @@ public class ISS implements Serializable {
 			oos.writeObject(data);
 		}
 		oos.close();
+	}
+ 
+	// Sensors are updating data on threads every 3 seconds, 
+	// to be implement:
+	// -> Store sensors data information to myDataMap every 3 seconds
+	// -> Use data from the HashMap to write information to data.ser text file every 3 seconds
+	@Override
+	public void run() {
+		
+		
 	}
 }

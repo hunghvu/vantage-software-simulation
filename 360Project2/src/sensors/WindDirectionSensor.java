@@ -2,6 +2,11 @@ package sensors;
 
 import sensors.Sensor;
 
+/**
+ * Sensor to detect wind direction.
+ * @author Zitao Yu
+ *
+ */
 public class WindDirectionSensor implements Sensor{
 	
 	/** A data value that can convert to a direction. **/
@@ -60,6 +65,18 @@ public class WindDirectionSensor implements Sensor{
 	@Override
 	public String toString() {
 		return "Wind Direction(Cardinal): " + myDirection;
+	}
+	
+	@Override
+	public void run() {
+		updateData();
+		try {
+			Thread.sleep(3000L);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.run();
 	}
 	
 	/**

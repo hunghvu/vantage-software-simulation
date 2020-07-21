@@ -28,4 +28,16 @@ public class SolarSensor implements Sensor{
 	public String toString() {
 		return "Solar Radiation(Watts/sq meter): " + myWatts;
 	}
+	
+	@Override
+	public void run() {
+		updateData();
+		try {
+			Thread.sleep(3000L);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.run();
+	}
 }

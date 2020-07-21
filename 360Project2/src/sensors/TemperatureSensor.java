@@ -2,6 +2,11 @@ package sensors;
 
 import sensors.Sensor;
 
+/**
+ * Sensor to detect temperature.
+ * @author Zitao Yu
+ *
+ */
 public class TemperatureSensor implements Sensor{
 	
 	/** Temperature for temperature sensor. **/
@@ -27,5 +32,17 @@ public class TemperatureSensor implements Sensor{
 	@Override
 	public String toString() {
 		return "Temperature(F): " + myTemp;
+	}
+	
+	@Override
+	public void run() {
+		updateData();
+		try {
+			Thread.sleep(3000L);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.run();
 	}
 }

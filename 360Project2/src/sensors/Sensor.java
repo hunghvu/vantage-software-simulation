@@ -2,7 +2,13 @@ package sensors;
 
 import java.util.Random;
 
-public interface Sensor {
+/**
+ * Sensor interface that provides outline for the sensors,
+ * it extends Runnable.
+ * @author Zitao Yu
+ *
+ */
+public interface Sensor extends Runnable{
 	/**
 	 * Static random object for the sensors
 	 */
@@ -19,8 +25,6 @@ public interface Sensor {
 	 */
 	public void updateData();
 	
-	// might be useful
-	public default String sensorType(){
-		return this.getClass().getSimpleName();
-	};
+	@Override
+	public void run();
 }
