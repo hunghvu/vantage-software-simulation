@@ -1,6 +1,7 @@
 package gui.view;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
@@ -13,6 +14,7 @@ import java.awt.*;
 public class WeatherPanel extends JPanel {
     private static final Dimension BOARD_SIZE = new Dimension(700, 100);
     private static final Font dataFontMed = new Font("Courier New", Font.BOLD, 20);
+    private static final EmptyBorder border = new EmptyBorder(5, 20, 5, 20);
 
     /** Label for the weather icon.*/
     private final JLabel myWeatherIcon;
@@ -31,18 +33,24 @@ public class WeatherPanel extends JPanel {
         this.setPreferredSize(BOARD_SIZE);
         this.setMinimumSize(BOARD_SIZE);
         this.setVisible(true);
+
         myWeatherIcon = new JLabel( );
         myMoonIcon = new JLabel( );
         myTime = new JLabel( );
         myDate = new JLabel( );
+
+        myWeatherIcon.setBorder(border);
+        myMoonIcon.setBorder(border);
+        myTime.setBorder(border);
+        myDate.setBorder(border);
+
+        determineWeather();
 
         //Initialize moon phase
         //Moon phase will just be static first quarter
         myMoonIcon.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass()
                 .getResource("/icons/moon.png"))
                 .getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
-        determineWeather();
-        this.add(myWeatherIcon);
         this.add(myMoonIcon);
 
         findCurrentDateAndTime();
@@ -51,7 +59,7 @@ public class WeatherPanel extends JPanel {
     /**
      * Collects current date and time
      */
-    public void findCurrentDateAndTime() {
+    private void findCurrentDateAndTime() {
         myDate.setFont(dataFontMed);
         myTime.setFont(dataFontMed);
         String[] date = java.time.LocalDate.now( ).toString( ).split("-");
@@ -80,7 +88,7 @@ public class WeatherPanel extends JPanel {
     /**
      * Takes the current weather data and choose an appropriate weather icon
      */
-    public void determineWeather(){
+    private void determineWeather(){
         double exampleTemp = 50.0;
         double exampleHumidity = 80.0;
         double exampleRainRate = 0.70;
@@ -108,6 +116,8 @@ public class WeatherPanel extends JPanel {
         myWeatherIcon.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass()
                 .getResource("/icons/"+ weather +".png"))
                 .getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
+
+        this.add(myWeatherIcon);
 
     }
 
