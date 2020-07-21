@@ -14,7 +14,7 @@ public class DeserializedData extends Observable {
   /**
    * Number of given data.
    */
-  private static final int MAP_SIZE = 20;
+  private static final int MAP_SIZE = 5;
   
   /**
    * A hash map contains data name and its respective value. <br>
@@ -59,6 +59,21 @@ public class DeserializedData extends Observable {
     
     return DATA_MAP;
     
+  }
+  
+  /**
+   * Print deserialized data to console, for testing purpose only.
+   */
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("DESERIALIZED \n");
+    for (String key : DATA_MAP.keySet()) {
+      
+      sb.append(key + " " + DATA_MAP.get(key) + "\n");
+      
+    }
+    return sb.toString();
   }
   
 }

@@ -1,13 +1,12 @@
 package gui.controller;
 
 import gui.model.DeserializedData;
-import gui.view.Frame;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.TimerTask;
 
 
 
@@ -17,18 +16,23 @@ import java.util.TimerTask;
  *
  */
 @SuppressWarnings("deprecation")
-public class Controller extends TimerTask implements Observer {
+public class Controller implements Observer, Runnable {
   
   /**
    * The deserialized data.
    */
-  private static final DeserializedData DESERIALIZED_DATA =
-      new DeserializedData();
+  private static final DeserializedData DESERIALIZED_DATA = new DeserializedData();
   
   /**
-   * The GUI's display.
+   * Sleep time for a thread.
    */
-  private static final Frame GUI = new Frame();
+  private static final long SLEEP_TIME = 3000L;
+  
+//  /**
+//   * The GUI's display.
+//   */
+//  private static final Frame GUI = new Frame();
+//  Will revisit this after GUI is implemented.
   
   /**
    * Default constructor for controller.
@@ -39,14 +43,8 @@ public class Controller extends TimerTask implements Observer {
         
   }
   
-  /**
-   * Update the GUI after the data has been changed.
-   */
-  @Override
-  public void update(Observable o, Object arg) {
-    // TODO Auto-generated method stub
-    
-  }
+
+
   
   /**
    * Get data after a certain time.
@@ -54,31 +52,80 @@ public class Controller extends TimerTask implements Observer {
   @Override
   public void run() {
     
-    receiver();
+    
+    try {
+      
+      receiver();
+      Thread.sleep(SLEEP_TIME);
+      run();
+      
+    } catch (InterruptedException e) {
+      
+      System.out.println("Controller thread error");
+      
+    }
+    
     
   }
   
   /**
-   * Receive the data, deserialize then put it inside model.
+   * Update the GUI after the data has been changed.
    */
-  private void receiver() {
+  @Override
+  public void update(Observable o, Object arg) {
+         
+    System.out.println(DESERIALIZED_DATA.toString());     
     
+  }
+  
+  /**
+   * Receive the data, deserialize then update the model.
+   */
+  public void receiver() {
+    
+    //Clear the model from last run.
     DESERIALIZED_DATA.getData().clear();
     
+    //Deserialization process.
     try {
       
       FileInputStream dataInput =  new FileInputStream("data.ser");
       ObjectInputStream objectInput = new ObjectInputStream(dataInput);
       
+      //Read all object in the stream.
+      while (true) {
+        
+        try {
+          
+          //Received data: String format - "<DataName>: <value>"
+          String data = (String) objectInput.readObject();
+          String[] keyAndValue = data.split(": ");
+          
+          //Update model with new key and value.
+          DESERIALIZED_DATA.setData(keyAndValue[0], keyAndValue[1]);
+          
+        } catch (EOFException e) {
+          //End of file, break the loop.
+          
+          break;
+          
+        } catch (ClassNotFoundException e) {
+          
+          System.out.println("Error occured in controller.Controller.receiver()");
+          
+        }
+        
+      }
+      
+      objectInput.close();
+      dataInput.close();
       
     } catch (IOException e) {
       
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      System.out.println("Error occured in controller.Controller.receiver()");
       
     }
-    
-    
+        
   }  
   
 }
