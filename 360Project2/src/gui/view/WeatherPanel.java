@@ -45,16 +45,21 @@ public class WeatherPanel extends JPanel {
         myDate.setBorder(border);
 
         determineWeather();
-
-        //Initialize moon phase
-        //Moon phase will just be static first quarter
-        myMoonIcon.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass()
-                .getResource("/icons/moon.png"))
-                .getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
-        this.add(myMoonIcon);
-
+        generateRandForMoonPhase();
         findCurrentDateAndTime();
     }
+
+    /**
+     * Generate a random number between 0 and 8 and choose a moon phase icon based on that random number.
+     */
+    private void generateRandForMoonPhase() {
+        int randNum = (int) (Math.random() * 8);
+        myMoonIcon.setIcon(new ImageIcon(new ImageIcon(getClass()
+                .getResource("/icons/moon"+ randNum +".png"))
+                .getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
+        this.add(myMoonIcon);
+    }
+
 
     /**
      * Collects current date and time
@@ -113,7 +118,7 @@ public class WeatherPanel extends JPanel {
         if (rain && !cold) {
             weather = "rain";
         }
-        myWeatherIcon.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass()
+        myWeatherIcon.setIcon(new ImageIcon(new ImageIcon(getClass()
                 .getResource("/icons/"+ weather +".png"))
                 .getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
 
