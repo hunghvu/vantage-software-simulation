@@ -99,7 +99,12 @@ public class Controller implements Observer, Runnable {
       
       // This is to test the accessibility to GUI only.
       // Will revisit after the serialized data is updated.
-//      myFrame.getDataPanel().changeDisplay("Hum out", Integer.toString(new Random().nextInt()));
+      myFrame.getMyDataPanel().changeDisplay("Hum out", Double.toString(new Random().nextInt(3000)));
+      myFrame.getMyDataPanel().changeDisplay("Temp out", Double.toString(new Random().nextInt(1000)));
+      myFrame.getMyDataPanel().changeDisplay("Baro pressure", Double.toString(new Random().nextInt(1000)));
+      String[] dirList= {"North", "NorthEast", "NorthWest"};
+      myFrame.getMyWindCompassPanel().changeDisplay("Wind direction", dirList[new Random().nextInt(3)]);
+      myFrame.getMyWindCompassPanel().changeDisplay("Wind speed", Double.toString(new Random().nextInt(10)));
       
     } catch (NullPointerException e) {
       

@@ -226,7 +226,7 @@ public class DataPanel extends JPanel implements Connect {
     @Override
     public void changeDisplay(String data, String value) {
 
-        String fahrenheit = "\u2109";
+        String fahrenheit = "F";
         if(data.equals("Temp out")) {
             myTempOut.setText(value + fahrenheit);
         }

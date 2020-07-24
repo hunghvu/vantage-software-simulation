@@ -53,10 +53,13 @@ public class WindCompassPanel extends JLayeredPane implements Connect {
     @Override
     public void changeDisplay(String data, String value) {
         if(data.equals("Wind direction")) {
-            myCompassLabel.removeAll();
+//            myCompassLabel.removeAll();
+          //removeAll() cause NPE. repaint() and revalidate() are used as a workaround (Hung Vu)
             myCompassLabel.setIcon(new ImageIcon(new ImageIcon(getClass()
                     .getResource("/icons/"+ value +".png"))
                     .getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH)));
+            repaint();
+            revalidate();
         }
         if(data.equals("Wind speed")) {
             long displaySpeed = Math.round(Float.parseFloat(value));
