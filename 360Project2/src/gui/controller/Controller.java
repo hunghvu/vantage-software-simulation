@@ -1,12 +1,15 @@
 package gui.controller;
 
 import gui.model.DeserializedData;
+import gui.view.Frame;
+import java.awt.EventQueue;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 
 
@@ -28,11 +31,10 @@ public class Controller implements Observer, Runnable {
    */
   private static final long SLEEP_TIME = 3000L;
   
-//  /**
-//   * The GUI's display.
-//   */
-//  private static final Frame GUI = new Frame();
-//  Will revisit this after GUI is implemented.
+  /**
+   * The GUI's display.
+   */ 
+  private static Frame myFrame;
   
   /**
    * Default constructor for controller.
@@ -40,7 +42,19 @@ public class Controller implements Observer, Runnable {
   public Controller() {
     
     DESERIALIZED_DATA.addObserver(this);
+    
+    //Start the frame in in another thread.
+    //For this project, it won't matter, but not a recommended approach though.
+    EventQueue.invokeLater(new Runnable() {
+      
+      @Override
+      public void run() {
         
+        myFrame = new Frame();
+        
+      }
+      
+    });    
   }
   
 
@@ -73,8 +87,31 @@ public class Controller implements Observer, Runnable {
    */
   @Override
   public void update(Observable o, Object arg) {
-         
-    System.out.println(DESERIALIZED_DATA.toString());     
+      
+    //Dumb code, for testing interaction between package only.
+//    System.out.println(DESERIALIZED_DATA.toString());    
+//    myFrame.getDataPanel().changeDisplay("Hum out", Integer.toString(new Random().nextInt()));
+//    For testing purpose only
+//    System.out.println(myFrame);
+    
+    //Update the frame (on a separated thread) with given data.
+    try {
+      
+      // This is to test the accessibility to GUI only.
+      // Will revisit after the serialized data is updated.
+//      myFrame.getDataPanel().changeDisplay("Hum out", Integer.toString(new Random().nextInt()));
+      
+    } catch (NullPointerException e) {
+      
+      System.out.println(
+          
+          "'Frame' field in controller has just been partially created using thread.\n"
+          + "Escape (this) error. \n"
+          + "Non-destructive error. Ignore it. \n"
+              
+      );
+      
+    }
     
   }
   

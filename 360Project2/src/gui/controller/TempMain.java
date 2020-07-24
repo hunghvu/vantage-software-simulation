@@ -26,8 +26,21 @@ public class TempMain {
     Controller ctrl = new Controller();
     Thread guiThread = new Thread(ctrl);
     guiThread.start();
+
+    //Dumb code, for testing the interaction between controller thread and GUI only.
+//    Controller ctrl = new Controller();
+//    Thread guiThread = new Thread(ctrl);
+//    guiThread.start();
     
+//    EventQueue.invokeLater(new Runnable() {
+//      @Override
+//      public void run() {
+//        new Frame();
+//      }
+//    });
     
+//    Frame f = new Frame();
+//    f.setVisible(true);
   }
 
 }
