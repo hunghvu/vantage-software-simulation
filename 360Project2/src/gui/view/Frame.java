@@ -61,6 +61,20 @@ public class Frame extends JFrame {
         this.add(myRightPanel, BorderLayout.EAST);
     }
 
-
-
+    public WindCompassPanel getMyWindCompassPanel(){
+        return myWindCompassPanel;
+    }
+    public GraphPanel getMyGraphPanel(){
+        return myGraphPanel;
+    }
+    public WeatherPanel getMyWeatherPanel() {
+        return myWeatherPanel;
+    }
+    public DataPanel getMyDataPanel() {
+        return myDataPanel;
+    }
+    public ButtonPanel getMyButtonPanel(){
+        return myButtonPanel;
+    }
+    
 }

@@ -21,7 +21,7 @@ public class WindCompassPanel extends JLayeredPane implements Connect {
         mySpeedLabel = new JLabel();
 
         ImageIcon compassIcon = new ImageIcon(new ImageIcon(getClass()
-                .getResource("/icons/north.png"))
+                .getResource("/icons/North.png"))
                 .getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH));
 
         myCompassLabel.setIcon(compassIcon);
@@ -45,6 +45,7 @@ public class WindCompassPanel extends JLayeredPane implements Connect {
     @Override
     public void changeDisplay(String data, String value) {
         if(data.equals("Wind direction")) {
+            myCompassLabel.removeAll();
             myCompassLabel.setIcon(new ImageIcon(new ImageIcon(getClass()
                     .getResource("/icons/"+ value +".png"))
                     .getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH)));

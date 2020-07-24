@@ -28,8 +28,9 @@ public class DataPanel extends JPanel implements Connect {
     private static final Font dataFontSmall = new Font("Courier New", Font.BOLD, 16);
     private static final Font dataFontBig = new Font("Courier New", Font.BOLD, 30);
     private static final EmptyBorder border = new EmptyBorder(5, 10, 5, 10);
+
     //Display values with decimal format of 1 decimal place.
-    private DecimalFormat df = new DecimalFormat("0.0");
+  //  private DecimalFormat df = new DecimalFormat("0.0");
 
     private final JLabel myTempOut;
     private final JLabel myTempIn;
@@ -211,48 +212,32 @@ public class DataPanel extends JPanel implements Connect {
     @Override
     public void changeDisplay(String data, String value) {
 
+        String fahrenheit = "\u2109";
         if(data.equals("Temp out")) {
-            myTempOut.setText(df.format(value));
+            myTempOut.setText(value + fahrenheit);
         }
         if(data.equals("Temp in")) {
-            myTempIn.setText(df.format(value));
+            myTempIn.setText(value + fahrenheit);
         }
         if(data.equals("Hum out")) {
-            myHumOut.setText(df.format(value));
+            myHumOut.setText(value + "%");
         }
         if(data.equals("Baro pressure")) {
-            myBaro.setText(df.format(value));
+            myBaro.setText(value + "in");
         }
         if(data.equals("Solar")) {
-            myUV.setText(df.format(value));
+            myUV.setText(value + "index");
         }
         if(data.equals("Dew point")) {
-            myDewPoint.setText(df.format(value));
+            myDewPoint.setText(value + fahrenheit);
         }
         if(data.equals("Rain")) {
-            myDailyRain.setText(df.format(value));
+            myDailyRain.setText(value + "in");
         }
         if(data.equals("Monthly rain")) {
-            myMonthlyRain.setText(df.format(value));
+            myMonthlyRain.setText(value + "in");
         }
     }
 
-    // commented out to test changeDisplay method
-    /**
-     * Update data values
-     */
-    /* 
-    private void updateDataVals() {
-        double exampleData = 30;
-        myTempOut.setText(df.format(exampleData));
-        myTempIn.setText(df.format(exampleData));
-        myHumOut.setText(df.format(exampleData));
-        myBaro.setText(df.format(exampleData));
-        myUV.setText(df.format(exampleData));
-        myDewPoint.setText(df.format(exampleData));
-        myDailyRain.setText(df.format(exampleData));
-        myMonthlyRain.setText(df.format(exampleData));
-    }
-    */
 }
 
