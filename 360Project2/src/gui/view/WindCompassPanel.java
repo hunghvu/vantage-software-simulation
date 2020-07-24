@@ -1,9 +1,11 @@
 package gui.view;
 
+import gui.model.Connect;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class WindCompassPanel extends JLayeredPane {
+public class WindCompassPanel extends JLayeredPane implements Connect {
     private static final Dimension BOARD_SIZE = new Dimension(300, 300);
 
     public final JLabel myCompassLabel;
@@ -19,7 +21,7 @@ public class WindCompassPanel extends JLayeredPane {
         mySpeedLabel = new JLabel();
 
         ImageIcon compassIcon = new ImageIcon(new ImageIcon(getClass()
-                .getResource("/icons/deg0.png"))
+                .getResource("/icons/north.png"))
                 .getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH));
 
         myCompassLabel.setIcon(compassIcon);
@@ -38,5 +40,18 @@ public class WindCompassPanel extends JLayeredPane {
         this.add(myCompassLabel);
         this.add(mySpeedLabel);
 
+    }
+
+    @Override
+    public void changeDisplay(String data, String value) {
+        if(data.equals("Wind direction")) {
+            myCompassLabel.setIcon(new ImageIcon(new ImageIcon(getClass()
+                    .getResource("/icons/"+ value +".png"))
+                    .getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH)));
+        }
+        if(data.equals("Wind speed")) {
+            long displaySpeed = Math.round(Float.parseFloat(value));
+            mySpeedLabel.setText(Long.toString(displaySpeed));
+        }
     }
 }
