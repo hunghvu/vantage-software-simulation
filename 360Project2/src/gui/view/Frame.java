@@ -21,6 +21,10 @@ public class Frame extends JFrame {
 
     private ButtonPanel myButtonPanel;
 
+    private JPanel myLeftPanel;
+    private JPanel myCenterPanel;
+    private JPanel myRightPanel;
+
     public Frame() {
         super(TITLE);
         setSize(new Dimension(1000,700));
@@ -38,6 +42,23 @@ public class Frame extends JFrame {
         myButtonPanel = new ButtonPanel();
         //this.add(myWeatherPanel, BorderLayout.NORTH);
         this.add(myDataPanel, BorderLayout.SOUTH);
+
+        myLeftPanel = new JPanel();
+        myCenterPanel = new JPanel();
+        myRightPanel = new JPanel();
+
+        myLeftPanel.add(myWindCompassPanel, BorderLayout.NORTH);
+        myLeftPanel.add(myGraphPanel, BorderLayout.SOUTH);
+
+        myCenterPanel.add(myWeatherPanel, BorderLayout.NORTH);
+        myCenterPanel.add(myDataPanel, BorderLayout.SOUTH);
+
+        myRightPanel.add(myButtonPanel, BorderLayout.CENTER);
+
+
+        this.add(myLeftPanel, BorderLayout.WEST);
+        this.add(myCenterPanel, BorderLayout.CENTER);
+        this.add(myRightPanel, BorderLayout.EAST);
     }
 
 
