@@ -163,8 +163,8 @@ public class DataPanel extends JPanel implements Connect {
 //        gbl.rowWeights = new double[] {1.0, 1.0, 1.0, Double.MIN_VALUE};
         this.setLayout(gbl);
         GridBagConstraints gbc = new GridBagConstraints();
-        myTempOut.setText("100.0" + "\u2109");
-        myTempIn.setText("100.0" + "\u2109");
+//        myTempOut.setText("100.0" + "\u2109");
+//        myTempIn.setText("100.0" + "\u2109");
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(30, 30, 30, 30);
         gbc.gridwidth = 2;
@@ -226,31 +226,31 @@ public class DataPanel extends JPanel implements Connect {
     @Override
     public void changeDisplay(String data, String value) {
 
-//        String fahrenheit = "\u2109";
-//        if(data.equals("Temp out")) {
-//            myTempOut.setText(value + fahrenheit);
-//        }
-//        if(data.equals("Temp in")) {
-//            myTempIn.setText(value + fahrenheit);
-//        }
-//        if(data.equals("Hum out")) {
-//            myHumOut.setText(value + "%");
-//        }
-//        if(data.equals("Baro pressure")) {
-//            myBaro.setText(value + "in");
-//        }
-//        if(data.equals("Solar")) {
-//            myUV.setText(value + "index");
-//        }
-//        if(data.equals("Dew point")) {
-//            myDewPoint.setText(value + fahrenheit);
-//        }
-//        if(data.equals("Rain")) {
-//            myDailyRain.setText(value + "in");
-//        }
-//        if(data.equals("Monthly rain")) {
-//            myMonthlyRain.setText(value + "in");
-//        }
+        String fahrenheit = "\u2109";
+        if(data.equals("Temp out")) {
+            myTempOut.setText(value + fahrenheit);
+        }
+        if(data.equals("Temp in")) {
+            myTempIn.setText(value + fahrenheit);
+        }
+        if(data.equals("Hum out")) {
+            myHumOut.setText(value + "%");
+        }
+        if(data.equals("Baro pressure")) {
+            myBaro.setText(value + "in");
+        }
+        if(data.equals("Solar")) {
+            myUV.setText(value + "index");
+        }
+        if(data.equals("Dew point")) {
+            myDewPoint.setText(value + fahrenheit);
+        }
+        if(data.equals("Rain")) {
+            myDailyRain.setText(value + "in");
+        }
+        if(data.equals("Monthly rain")) {
+            myMonthlyRain.setText(value + "in");
+        }
     }
 
 }
