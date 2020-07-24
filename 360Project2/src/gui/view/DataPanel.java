@@ -1,16 +1,27 @@
 package gui.view;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
 import java.text.DecimalFormat;
 import java.util.Random;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import gui.model.Connect;
 
 /**
  * A panel to show all the console data
  * @author My Huynh
  */
-public class DataPanel extends JPanel {
+public class DataPanel extends JPanel implements Connect {
     private static final Dimension BOARD_SIZE = new Dimension(700, 500);
     private static final Font dataFontSmall = new Font("Courier New", Font.BOLD, 16);
     private static final Font dataFontBig = new Font("Courier New", Font.BOLD, 30);
@@ -89,7 +100,7 @@ public class DataPanel extends JPanel {
         myDailyRain.setFont(dataFontBig);
         myMonthlyRain.setFont(dataFontBig);
 
-        updateDataVals();
+        //updateDataVals();
         generateUmbrellaSymbol();
 
         JPanel tempOutPanel = new JPanel(new BorderLayout());
@@ -188,9 +199,11 @@ public class DataPanel extends JPanel {
 
     }
 
+    // commented out to test changeDisplay method
     /**
      * Update data values
      */
+    /* 
     private void updateDataVals() {
         double exampleData = 30;
         myTempOut.setText(df.format(exampleData));
@@ -201,6 +214,23 @@ public class DataPanel extends JPanel {
         myDewPoint.setText(df.format(exampleData));
         myDailyRain.setText(df.format(exampleData));
         myMonthlyRain.setText(df.format(exampleData));
+    }
+    */
+    
+    @Override
+    public void changeDisplay(String data, String value) {
+        
+        if (data.equals("Baro pressure")) {
+           myBaro.setText(value);
+        } else if (data.equals("Temp in")) {
+           myTempIn.setText(value);
+        } else if (data.equals("Temp out")) {
+           myTempOut.setText(value); 
+        } else if (data.equals("Hum out")) {
+           myHumOut.setText(value); 
+        } else if (data.equals("Rain")) {
+           myDailyRain.setText(value); 
+        }
     }
 }
 
