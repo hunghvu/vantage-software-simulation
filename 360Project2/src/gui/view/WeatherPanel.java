@@ -1,5 +1,7 @@
 package gui.view;
 
+import gui.model.Connect;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -11,7 +13,7 @@ import java.awt.*;
  *
  * @author My Huynh
  */
-public class WeatherPanel extends JPanel {
+public class WeatherPanel extends JPanel implements Connect {
     private static final Dimension BOARD_SIZE = new Dimension(700, 100);
     private static final Font dataFontMed = new Font("Courier New", Font.BOLD, 20);
     private static final EmptyBorder border = new EmptyBorder(5, 20, 5, 20);
@@ -24,6 +26,10 @@ public class WeatherPanel extends JPanel {
     private final JLabel myTime;
     /** Label for the current date.*/
     private final JLabel myDate;
+
+    private double myTemp;
+    private double myHum;
+    private double myRainRate;
 
     /**
      * Constructs the weather panel
@@ -87,20 +93,14 @@ public class WeatherPanel extends JPanel {
         this.add(myDate);
     }
 
-    //method to change the weather icon
-    //need to implement a model class to stores data from sensors
-
     /**
      * Takes the current weather data and choose an appropriate weather icon
      */
     private void determineWeather(){
-        double exampleTemp = 50.0;
-        double exampleHumidity = 80.0;
-        double exampleRainRate = 0.70;
 
-        boolean cloud = exampleHumidity > 75;
-        boolean rain = exampleRainRate > 0.75;
-        boolean cold = exampleTemp < 32;
+        boolean cloud = myHum > 75;
+        boolean rain = myRainRate > 0.75;
+        boolean cold = myTemp < 32;
 
         String weather = "sun";
         if (cold && rain){
@@ -126,4 +126,16 @@ public class WeatherPanel extends JPanel {
 
     }
 
+    @Override
+    public void changeDisplay(String data, String value) {
+        if(data.equals("Temp out")) {
+            myTemp = Double.parseDouble(value);
+        }
+        if(data.equals("Hum out")) {
+            myHum = Double.parseDouble(value);
+        }
+        if(data.equals("Rain rate")) {
+            myRainRate = Double.parseDouble(value);
+        }
+    }
 }
