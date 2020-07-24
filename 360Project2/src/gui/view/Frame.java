@@ -37,10 +37,10 @@ public class Frame extends JFrame {
     private void setupGUI() {
         myWindCompassPanel = new WindCompassPanel();
         myGraphPanel = new GraphPanel();
-        //myWeatherPanel = new WeatherPanel(); //commented out b/c NullPointerException when creating moonphase
+        myWeatherPanel = new WeatherPanel(); //commented out b/c NullPointerException when creating moonphase
         myDataPanel = new DataPanel();
         myButtonPanel = new ButtonPanel();
-        //this.add(myWeatherPanel, BorderLayout.NORTH);
+        this.add(myWeatherPanel, BorderLayout.NORTH);
         this.add(myDataPanel, BorderLayout.SOUTH);
 
         myLeftPanel = new JPanel();

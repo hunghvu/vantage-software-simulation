@@ -50,10 +50,10 @@ public class WeatherPanel extends JPanel {
     }
 
     /**
-     * Generate a random number between 0 and 8 and choose a moon phase icon based on that random number.
+     * Generate a random number from 1 to 6 and choose a moon phase icon based on that random number.
      */
     private void generateRandForMoonPhase() {
-        int randNum = (int) (Math.random() * 8);
+        int randNum = (int) (Math.random() * 6);
         myMoonIcon.setIcon(new ImageIcon(new ImageIcon(getClass()
                 .getResource("/icons/moon"+ randNum +".png"))
                 .getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH)));
