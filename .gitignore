@@ -10,5 +10,6 @@
 
 # Temporary file
 360Project2/*.ser
+*.ser
 
 
