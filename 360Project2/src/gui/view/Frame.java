@@ -13,7 +13,7 @@ public class Frame extends JFrame {
 
     private WindCompassPanel myWindCompassPanel;
 
-    private GraphPanel myGraphPanel;
+   // private GraphPanel myGraphPanel;
 
     private WeatherPanel myWeatherPanel;
 
@@ -27,7 +27,7 @@ public class Frame extends JFrame {
 
     public Frame() {
         super(TITLE);
-        setSize(new Dimension(1000,700));
+        setSize(new Dimension(1200,700));
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -36,7 +36,7 @@ public class Frame extends JFrame {
     }
     private void setupGUI() {
         myWindCompassPanel = new WindCompassPanel();
-        myGraphPanel = new GraphPanel();
+     //   myGraphPanel = new GraphPanel();
         myWeatherPanel = new WeatherPanel(); //commented out b/c NullPointerException when creating moonphase
         myDataPanel = new DataPanel();
         myButtonPanel = new ButtonPanel();
@@ -48,7 +48,7 @@ public class Frame extends JFrame {
         myRightPanel = new JPanel();
 
         myLeftPanel.add(myWindCompassPanel, BorderLayout.NORTH);
-        myLeftPanel.add(myGraphPanel, BorderLayout.SOUTH);
+    //    myLeftPanel.add(myGraphPanel, BorderLayout.SOUTH);
 
         myCenterPanel.add(myWeatherPanel, BorderLayout.NORTH);
         myCenterPanel.add(myDataPanel, BorderLayout.SOUTH);
@@ -64,9 +64,9 @@ public class Frame extends JFrame {
     public WindCompassPanel getMyWindCompassPanel(){
         return myWindCompassPanel;
     }
-    public GraphPanel getMyGraphPanel(){
-        return myGraphPanel;
-    }
+//    public GraphPanel getMyGraphPanel(){
+//        return myGraphPanel;
+//    }
     public WeatherPanel getMyWeatherPanel() {
         return myWeatherPanel;
     }
@@ -76,5 +76,5 @@ public class Frame extends JFrame {
     public ButtonPanel getMyButtonPanel(){
         return myButtonPanel;
     }
-    
+
 }

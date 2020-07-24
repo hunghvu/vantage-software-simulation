@@ -5,12 +5,20 @@ import gui.model.Connect;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel to show the wind direction and wind speed
+ *
+ * @author My Huynh
+ */
 public class WindCompassPanel extends JLayeredPane implements Connect {
     private static final Dimension BOARD_SIZE = new Dimension(300, 300);
 
     public final JLabel myCompassLabel;
     public JLabel mySpeedLabel;
-    
+
+    /**
+     * Construct the panel
+     */
     public WindCompassPanel() {
         super( );
         this.setPreferredSize(BOARD_SIZE);
