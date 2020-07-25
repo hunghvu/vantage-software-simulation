@@ -73,6 +73,14 @@ public class ISS implements Serializable, Runnable{
 		
 		// set up myDataMap and myThreads
 		myDataMap = new LinkedHashMap<String, String>();
+		// generate 10 rain rate data points
+		myRainDataPoint = new LinkedList<>();
+		for(int i = 0; i< 10; i++) {
+			rainSensor.updateData();
+			myRainDataPoint.add(new Double(rainSensor.getDataOne()));
+		}
+		String dataPoint = myRainDataPoint.toString().substring(1);
+		dataPoint = dataPoint.substring(0, dataPoint.length() - 1);
 		myDataMap.put("Wind direction: ", windDirSensor.getDataTwo() );
 		myDataMap.put("Wind speed: ", windSpdSensor.getDataOne());
 		// generate random sunrise time
@@ -94,14 +102,6 @@ public class ISS implements Serializable, Runnable{
 		int num = random.nextInt(100000);
 		String formatted = String.format("%05d", num); 
 		myDataMap.put("Station number: ", formatted);
-		myRainDataPoint = new LinkedList<>();
-		// generate 10 rain rate data points
-		for(int i = 0; i< 10; i++) {
-			rainSensor.updateData();
-			myRainDataPoint.add(new Double(rainSensor.getDataOne()));
-		}
-		String dataPoint = myRainDataPoint.toString().substring(1);
-		dataPoint = dataPoint.substring(0, dataPoint.length() - 1);
 		myDataMap.put("Rain graph: ", dataPoint);
 		
 		myThreads = new HashSet<Thread>();
@@ -136,8 +136,13 @@ public class ISS implements Serializable, Runnable{
 			} else if(s.toString().equals("Rain Sensor")) {
 				myDataMap.replace("Rain rate: ", s.getDataOne());
 				myDataMap.replace("Rain: ", s.getDataTwo());
+				myRainDataPoint.remove();
+				myRainDataPoint.add(new Double(s.getDataOne()));
 			}
 		}
+		String dataPoint = myRainDataPoint.toString().substring(1);
+		dataPoint = dataPoint.substring(0, dataPoint.length() - 1);
+		myDataMap.replace("Rain graph: ", dataPoint);
 	}
 	
 	/**
