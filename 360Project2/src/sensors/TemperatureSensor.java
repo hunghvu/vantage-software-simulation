@@ -9,38 +9,61 @@ import sensors.Sensor;
  */
 public class TemperatureSensor implements Sensor{
 	
-	/** Temperature for temperature sensor. **/
-	private double myTemp;
+	/** Outdoor Temperature. Range: -40 to 150°F.**/
+	private double myTempOut;
+	
+	/** Indoor Temperature. Range: 68 to 76°F.**/
+	private double myTempIn;
 	
 	/**
 	 * Constructor.
 	 */
 	public TemperatureSensor() {
-		myTemp = RANDOM.nextInt(191) - 40;
-		myTemp += RANDOM.nextDouble();
-		myTemp = Math.round(myTemp * 100.0) / 100.0;
+		myTempOut = RANDOM.nextInt(191) - 40;
+		myTempOut += RANDOM.nextDouble();
+		myTempOut = Math.round(myTempOut * 100.0) / 100.0;
+		myTempIn = RANDOM.nextInt(9) + 68;
+		myTempIn += RANDOM.nextDouble();
+		myTempIn = Math.round(myTempIn * 100.0) / 100.0;
 	}
 	
 	@Override
-	public double getData() {
-		return myTemp;
+	public String getDataOne() {
+		return String.valueOf(myTempOut);
 	}
-
+	
+	@Override
+	public String getDataTwo() {
+		return String.valueOf(myTempIn);
+	}
+	
+	public double getTempIn() {
+		return myTempIn;
+	}
+	
 	@Override
 	public void updateData() {
-		myTemp += RANDOM.nextInt(5) - 1;
-		myTemp += RANDOM.nextDouble();
-		myTemp = Math.round(myTemp * 100.0) / 100.0;
+		myTempOut += RANDOM.nextInt(5) - 1;
+		myTempOut += RANDOM.nextDouble();
+		myTempOut = Math.round(myTempOut * 100.0) / 100.0;
+		if(myTempOut > 150) {
+			myTempOut = 150;
+		}else if(myTempOut < -40) {
+			myTempOut = -40;
+		}
+		myTempIn += RANDOM.nextInt(3) - 1;
+		myTempIn += RANDOM.nextDouble();
+		myTempIn = Math.round(myTempIn * 100.0) / 100.0;
+		if(myTempIn > 76) {
+			myTempOut = 76;
+		}else if(myTempOut < 68) {
+			myTempOut = 68;
+		}
 	}
 	
 	@Override
 	public String toString() {
-		return "Temperature(F): " + myTemp;
-	}
-	
-	@Override
-	public String getHeader() {
-		return "Temperature: ";
+		return "Temperature Sensor";
 	}
 	
 	@Override
@@ -54,5 +77,4 @@ public class TemperatureSensor implements Sensor{
 		}
 		this.run();
 	}
-
 }

@@ -15,21 +15,24 @@ public interface Sensor extends Runnable{
 	static Random RANDOM = new Random();
 	
 	/**
-	 * Method to return data for that specific sensor.
-	 * @return the data for the sensor.
+	 * Method to return first data as a String.
+	 * @return the first data for the sensor.
 	 */
-	public double getData();
+	public String getDataOne();
 	
 	/**
-	 * Method to return the header for the sensor.
-	 * @return the header.
+	 * Method to return second data as a String.
+	 * @return the second data for the sensor.
 	 */
-	public String getHeader();
+	public String getDataTwo();
 	
 	/**
 	 * Update data.
 	 */
 	public void updateData();
+	
+	@Override
+	public String toString();
 
 	@Override
 	public void run();

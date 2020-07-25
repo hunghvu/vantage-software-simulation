@@ -23,55 +23,29 @@ public class WindDirectionSensor implements Sensor{
 		updateDirection();
 	}
 
-	/**
-	 * Getter for direction.
-	 * @return myDirection.
-	 */
-	public String getDirection() {
+	@Override
+	public String getDataOne() {
+		return String.valueOf(myData);
+	}
+	
+	@Override
+	public String getDataTwo() {
 		return myDirection;
 	}
 	
 	@Override
-	public double getData() {
-		return myData;
-	}
-	
-	@Override
 	public void updateData() {
-		if (myData == 0) {
-			switch(RANDOM.nextInt(3)) {
-				case 0:
-					myData++;
-					break;
-				case 1:	
-					myData = 7;
-					break;
-			}
-		} else if (myData == 7) {
-			switch(RANDOM.nextInt(3)) {
-				case 0:
-					myData--;
-					break;
-				case 1:	
-					myData = 0;
-					break;
-			}
-		} else {
-			myData += RANDOM.nextInt(3) - 1;
-		}
+
+		myData += RANDOM.nextInt(3) - 1;
+		myData = myData % 8;
 		updateDirection();
 	}
 	
 	@Override
 	public String toString() {
-		return "Wind Direction(Cardinal): " + myDirection;
+		return "Wind Direction Sensor";
 	}
-	
-	@Override
-	public String getHeader() {
-		return "Wind Direction: ";
-	}
-	
+
 	@Override
 	public void run() {
 		updateData();

@@ -9,38 +9,57 @@ import sensors.Sensor;
  */
 public class HumiditySensor implements Sensor{
 	
-	/** Humidity percentage for humidity sensor. **/
-	private double myHumidity;
+	/** Outdoor humidity percentage. Range: 0% - 100% **/
+	private double myHumOut;
+	
+	/** Indoor humidity percentage. Range: 40% - 50% **/
+	private double myHumIn;
 	
 	/**
 	 * Constructor.
 	 */
 	public HumiditySensor() {
-		myHumidity = RANDOM.nextInt(100) + 1;
-		myHumidity += RANDOM.nextDouble();
-		myHumidity = Math.round(myHumidity * 100.0) / 100.0;
+		myHumOut = RANDOM.nextInt(100) + 1;
+		myHumOut += RANDOM.nextDouble();
+		myHumOut = Math.round(myHumOut * 100.0) / 100.0;
+		myHumIn = RANDOM.nextInt(11) + 40;
+		myHumIn += RANDOM.nextDouble();
+		myHumIn = Math.round(myHumIn * 100.0) / 100.0;
 	}
 
 	@Override
-	public double getData() {
-		return myHumidity;
+	public String getDataOne() {
+		return String.valueOf(myHumOut);
 	}
-
+	
+	@Override
+	public String getDataTwo() {
+		return String.valueOf(myHumIn);
+	}
+	
 	@Override
 	public void updateData() {
-		myHumidity += RANDOM.nextInt(3) - 2;
-		myHumidity += RANDOM.nextDouble();
-		myHumidity = Math.round(myHumidity * 100.0) / 100.0;
+		myHumOut += RANDOM.nextInt(4) - 2;
+		myHumOut += RANDOM.nextDouble();
+		myHumOut = Math.round(myHumOut * 100.0) / 100.0;
+		if(myHumOut > 100) {
+			myHumOut = 100;
+		} else if(myHumOut < 0) {
+			myHumOut = 0;
+		}
+		myHumIn += RANDOM.nextInt(3) - 2;
+		myHumIn += RANDOM.nextDouble();
+		myHumIn = Math.round(myHumIn * 100.0) / 100.0;
+		if(myHumIn > 50) {
+			myHumIn = 50;
+		} else if(myHumIn < 40) {
+			myHumIn = 40;
+		}
 	}
 	
 	@Override
 	public String toString() {
-		return "Humidity: " + myHumidity + "%";
-	}
-	
-	@Override
-	public String getHeader() {
-		return "Humidity: ";
+		return "Humidity Sensor";
 	}
 	
 	@Override

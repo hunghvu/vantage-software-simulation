@@ -7,15 +7,18 @@ package Driver;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Random;
 import java.util.Set;
-
+import sensors.BarometricSensor;
 import sensors.HumiditySensor;
+import sensors.RainSensor;
 import sensors.Sensor;
-import sensors.SolarSensor;
 import sensors.TemperatureSensor;
 import sensors.WindDirectionSensor;
 import sensors.WindSpeedSensor;
@@ -40,37 +43,64 @@ public class ISS implements Serializable, Runnable{
 	 * A map for sensors data.
 	 */
 	private Map<String, String> myDataMap;;
-
+	
+	/**
+	 * Queue for rain data point.
+	 */
+	private Queue<Double> myRainDataPoint;
+	
 	/**
 	 * Constructor for the class
 	 * @throws IOException is thrown if there is no data receiving to the ISS device
 	 */
+	@SuppressWarnings("deprecation")
 	public ISS() throws IOException {
 		TemperatureSensor tempSensor = new TemperatureSensor();
-		HumiditySensor humiditySensor = new HumiditySensor();
-		SolarSensor solarSensor = new SolarSensor();
-		WindSpeedSensor windSpeedSensor = new WindSpeedSensor();
-		WindDirectionSensor windDirectionSensor = new WindDirectionSensor();
+		HumiditySensor humSensor = new HumiditySensor();
+		WindSpeedSensor windSpdSensor = new WindSpeedSensor();
+		WindDirectionSensor windDirSensor = new WindDirectionSensor();
+		BarometricSensor baroSensor = new BarometricSensor();
+		RainSensor	rainSensor = new RainSensor();
+		
 		// add all sensors to a list for references
 		mySensors = new ArrayList<Sensor>();
+		mySensors.add(windDirSensor);
+		mySensors.add(windSpdSensor);
 		mySensors.add(tempSensor);
-		mySensors.add(humiditySensor);
-		mySensors.add(solarSensor);
-		mySensors.add(windSpeedSensor);
-		mySensors.add(windDirectionSensor);
+		mySensors.add(humSensor);
+		mySensors.add(baroSensor);
+		mySensors.add(rainSensor);
 		
 		// set up myDataMap and myThreads
-		myDataMap = new HashMap<String, String>();
+		myDataMap = new LinkedHashMap<String, String>();
+		myDataMap.put("Wind direction: ", windDirSensor.getDataTwo() );
+		myDataMap.put("Wind speed: ", windSpdSensor.getDataOne());
+		// generate random sunrise time
+		Random random = new Random();
+		int hour = random.nextInt(6) + 4;
+		int min = random.nextInt(60);
+		String sunriseTime = "0" + String.valueOf(hour) + ":" + String.valueOf(min);
+		myDataMap.put("Sunrise time: ", sunriseTime);
+		myDataMap.put("Baro pressure: ", baroSensor.getDataOne());
+		myDataMap.put("Baro trend: ", baroSensor.getDataTwo());
+		myDataMap.put("Wind chill: ", windSpdSensor.getDataTwo());
+		myDataMap.put("Temp in: ", tempSensor.getDataTwo());
+		myDataMap.put("Temp out: ", tempSensor.getDataOne());
+		myDataMap.put("Hum in: ", humSensor.getDataTwo());
+		myDataMap.put("Hum out: ", humSensor.getDataOne());
+		myDataMap.put("Rain rate: ", rainSensor.getDataOne());
+		myDataMap.put("Rain: ", rainSensor.getDataTwo());
+		// generate random station number
+		int num = random.nextInt(100000);
+		String formatted = String.format("%05d", num); 
+		myDataMap.put("Station number: ", formatted);
+		myRainDataPoint = new LinkedList<>();
+		myRainDataPoint.add(new Double(rainSensor.getDataOne()));
+		myDataMap.put("Rain graph: ", myRainDataPoint.toString());
+		
 		myThreads = new HashSet<Thread>();
 		for(Sensor s : mySensors) {
 			myThreads.add(new Thread(s));
-			
-			// check is the sensor is WindDirectionSensor
-			if(s.getHeader().equals("Wind Direction: ")) {
-				myDataMap.put(s.getHeader(), ((WindDirectionSensor) s).getDirection() );
-			} else {
-				myDataMap.put(s.getHeader(), String.valueOf(s.getData()));
-			}
 		}
 		// call start() on each threads
 		for(Thread t : myThreads) {
@@ -81,14 +111,38 @@ public class ISS implements Serializable, Runnable{
 	/**
 	 * Update myDataMap.
 	 */
+	@SuppressWarnings("deprecation")
 	public void updateMap() {
 		for(Sensor s : mySensors) {
-			if(s.getHeader().equals("Wind Direction: ")) {
-				myDataMap.replace(s.getHeader(), ((WindDirectionSensor) s).getDirection() );
-			} else {
-				myDataMap.replace(s.getHeader(), String.valueOf(s.getData()));
+			if(s.toString().equals("Wind Direction Sensor")) {
+				myDataMap.replace("Wind direction: ", s.getDataTwo());
+			}  else if(s.toString().equals("Temperature Sensor")) {
+				myDataMap.replace("Temp out: ", s.getDataOne());
+				myDataMap.replace("Temp in: ", s.getDataTwo());
+			} else if(s.toString().equals("Humidity Sensor")) {
+				myDataMap.replace("Hum out: ", s.getDataOne());
+				myDataMap.replace("Hum in: ", s.getDataTwo());
+			} else if(s.toString().equals("Wind Speed Sensor")){
+				myDataMap.replace("Wind speed: ", s.getDataOne());
+				myDataMap.replace("Wind chill: ", s.getDataTwo());
+			} else if(s.toString().equals("Barometric Sensor")) {
+				myDataMap.replace("Baro pressure: ", s.getDataOne());
+				myDataMap.replace("Baro trend: ", s.getDataTwo());
+			} else if(s.toString().equals("Rain Sensor")) {
+				myDataMap.replace("Rain rate: ", s.getDataOne());
+				myDataMap.replace("Rain: ", s.getDataTwo());
+				if(myRainDataPoint.size() == 10) {
+					myRainDataPoint.remove();
+					myRainDataPoint.add(new Double(s.getDataOne()));
+				} else {
+					myRainDataPoint.add(new Double(s.getDataOne()));
+				}
 			}
 		}
+		// format data points
+		String dataPoint = myRainDataPoint.toString().substring(1);
+		dataPoint = dataPoint.substring(0, dataPoint.length() - 1);
+		myDataMap.put("Rain graph: ", dataPoint);
 	}
 	
 	/**
@@ -117,7 +171,7 @@ public class ISS implements Serializable, Runnable{
 			updateMap();
 			writeSerializedData();
 			// for testing
-			System.out.println(getSensorsInfo());
+			printSensorsInfo();
 			
 			Thread.sleep(3000L);
 		} catch (InterruptedException e) {
@@ -130,23 +184,14 @@ public class ISS implements Serializable, Runnable{
 		this.run();
 	}
 		
-	/**
-	 * --For testing purposes--
-	 * Prints out the information of mySensors and myDataMap.
-	 * @return sensors information
+	/** --For testing purposes--
+	 * Prints out the information of myDataMap.
 	 */
-	public String getSensorsInfo() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("----Console Receiver Output----");
-		System.out.println("Map:");
-		for(Sensor s : mySensors) {
-			sb.append("\n");
-			sb.append(s.toString());
-			// print map
-			System.out.println(s.getHeader() + myDataMap.get(s.getHeader()));
+	private void printSensorsInfo() {
+		System.out.println("*******************************************");
+		for(Map.Entry<String, String> e : myDataMap.entrySet()){
+			System.out.println(e.getKey() + e.getValue());
 		}
-		System.out.println();
-		sb.append("\n");
-		return sb.toString();
+		System.out.println("*******************************************");
 	}
 }

@@ -17,8 +17,8 @@ public class SolarSensor implements Sensor{
 	}
 
 	@Override
-	public double getData() {
-		return myWatts;
+	public String getDataOne() {
+		return String.valueOf(myWatts);
 	}
 
 	@Override
@@ -30,12 +30,7 @@ public class SolarSensor implements Sensor{
 
 	@Override
 	public String toString() {
-		return "Solar Radiation(Watts/sq meter): " + myWatts;
-	}
-	
-	@Override
-	public String getHeader() {
-		return "Solar: ";
+		return "Solar Radiation Sensor";
 	}
 	
 	@Override
@@ -48,6 +43,12 @@ public class SolarSensor implements Sensor{
 			e.printStackTrace();
 		}
 		this.run();
+	}
+
+	@Override
+	public String getDataTwo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
