@@ -250,7 +250,8 @@ public class DataPanel extends JPanel implements Connect {
                         .getImage( ).getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
             }
         }
-        if(data.equals("Station Number")) {
+        // Change "Number" to lower case - Hung Vu
+        if(data.equals("Station number")) {
             myStationNumber.setText("STATION NO." + value);
             myStationNumber.setFont(dataFontSmall);
         }

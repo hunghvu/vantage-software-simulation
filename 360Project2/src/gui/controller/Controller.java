@@ -127,8 +127,9 @@ public class Controller implements Observer, Runnable {
           
         } else if (entry.getKey().equals("Baro trend")){
           
-//          myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
-          // Haven't implemented
+          myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
+          // Haven't implemented (07-24)
+          // Done (07-25)
           
         } else if (entry.getKey().equals("Temp out")){
           
@@ -136,8 +137,9 @@ public class Controller implements Observer, Runnable {
           
         } else if (entry.getKey().equals("Station number")){
           
-//          myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
-          // Haven't implemented
+          myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
+          // Haven't implemented (07-24)
+          // Not working (07-25)
           
         } else if (entry.getKey().equals("Wind direction")){
           
@@ -153,8 +155,9 @@ public class Controller implements Observer, Runnable {
           
         } else if (entry.getKey().equals("Rain rate")){
           
-//          myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
-          // Haven't implemented
+          myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
+          // Haven't implemented (07-24)
+          // Done (07-25)
           
         } else if (entry.getKey().equals("Sunrise time")){
           
@@ -167,17 +170,20 @@ public class Controller implements Observer, Runnable {
           
         } else if (entry.getKey().equals("Wind chill")){
           
-//          myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
-          // Haven't implemented
+          myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
+          // Haven't implemented (07-24)
+          // Done (07-25)
           
         } else if (entry.getKey().equals("Hum in")){
           
           myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
+          // Haven't implemented (07-24)
+          // Not working (07-25)
           
         } else if (entry.getKey().equals("Rain graph")){
           
 //          myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
-          // Haven't implemented
+          // Haven't implemented (07-24)
           
         } 
       
