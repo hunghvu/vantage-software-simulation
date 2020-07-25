@@ -105,6 +105,13 @@ public class Controller implements Observer, Runnable {
       String[] dirList= {"North", "NorthEast", "NorthWest"};
       myFrame.getMyWindCompassPanel().changeDisplay("Wind direction", dirList[new Random().nextInt(3)]);
       myFrame.getMyWindCompassPanel().changeDisplay("Wind speed", Double.toString(new Random().nextInt(10)));
+      myFrame.getMyWeatherPanel().changeDisplay(
+          
+          Integer.toString(new Random().nextInt(100)), 
+          Double.toString(new Random().nextDouble()), 
+          Integer.toString(new Random().nextInt(50))
+          
+          );
       
     } catch (NullPointerException e) {
       

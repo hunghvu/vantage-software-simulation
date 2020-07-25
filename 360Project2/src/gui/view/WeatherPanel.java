@@ -128,14 +128,31 @@ public class WeatherPanel extends JPanel implements Connect {
 
     @Override
     public void changeDisplay(String data, String value) {
-        if(data.equals("Temp out")) {
-            myTemp = Double.parseDouble(value);
-        }
-        if(data.equals("Hum out")) {
-            myHum = Double.parseDouble(value);
-        }
-        if(data.equals("Rain rate")) {
-            myRainRate = Double.parseDouble(value);
-        }
+      //No need - Hung Vu
+//        if(data.equals("Temp out")) {
+//            myTemp = Double.parseDouble(value);
+//        }
+//        if(data.equals("Hum out")) {
+//            myHum = Double.parseDouble(value);
+//        }
+//        if(data.equals("Rain rate")) {
+//            myRainRate = Double.parseDouble(value);
+//        }
+    }
+    
+    //For weather panel, it's necessary to receive multiple values at the same time.
+    //This will make more sense.
+    //Hung Vu
+    @Override
+    public void changeDisplay(String value1, String value2, String value3) {
+      
+      myTemp = Double.parseDouble(value1);
+      myHum = Double.parseDouble(value2);
+      myRainRate = Double.parseDouble(value3);
+      determineWeather();
+      
+      repaint();
+      revalidate();
+      
     }
 }

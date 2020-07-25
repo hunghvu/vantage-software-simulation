@@ -66,4 +66,10 @@ public class WindCompassPanel extends JLayeredPane implements Connect {
             mySpeedLabel.setText(Long.toString(displaySpeed));
         }
     }
+
+    @Override
+    public void changeDisplay(String value1, String value2, String value3) {
+      // TODO Auto-generated method stub
+      
+    }
 }
