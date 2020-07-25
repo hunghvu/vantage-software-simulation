@@ -17,11 +17,11 @@ public class RainSensor implements Sensor{
 	 * Constructor.
 	 */
 	public RainSensor() {
-		myRainRate = RANDOM.nextInt(100);
+		myRainRate = RANDOM.nextInt(30);
 		myRainRate += RANDOM.nextDouble();
 		myRainRate = Math.round(myRainRate * 100.0) / 100.0;
 		
-		myRainFall = RANDOM.nextInt(30);
+		myRainFall = RANDOM.nextInt(100);
 		myRainFall += RANDOM.nextDouble();
 		myRainFall = Math.round(myRainFall * 100.0) / 100.0;
 	}
