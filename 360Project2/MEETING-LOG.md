@@ -1,5 +1,21 @@
 # MEETING LOG
 
+## [07-24-2020]
+- **Done**
+	- Threaded implementation for all components.
+	- Process of generating data and deserialization are automatic, with an interval of 3000ms.
+	- Sensors and ISS implementation. *We continue to make small changes here if necessary*.
+	- Structure of GUI's source code is defined.
+- **Partially or nearly done**
+	- GUI's design.
+	- Interaction between GUI's components.
+	- Main/secondary buttons and functionality implementations.
+- **Not done**
+	- Unit test.
+	- Checkstyle and PMD.
+	- Demo and test video.
+
+	
 ## [07-17-2020]
 - **Done**
 	- Job assignment:
