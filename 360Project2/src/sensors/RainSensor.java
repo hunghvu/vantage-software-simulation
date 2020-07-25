@@ -38,7 +38,7 @@ public class RainSensor implements Sensor{
 
 	@Override
 	public void updateData() {
-		myRainRate += RANDOM.nextInt(4) - 2;
+		myRainRate += RANDOM.nextInt(8) - 4;
 		myRainRate += RANDOM.nextDouble();
 		myRainRate = Math.round(myRainRate * 100.0) / 100.0;
 		if(myRainRate > 30) {

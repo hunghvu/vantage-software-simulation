@@ -1,7 +1,11 @@
 package sensors;
 
 import sensors.Sensor;
-
+/**
+ * Sensor to detect Rain.
+ * @author Zitao Yu
+ *
+ */
 public class SolarSensor implements Sensor{
 	
 	/** Watts for solar sensor. **/

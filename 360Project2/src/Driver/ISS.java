@@ -95,8 +95,14 @@ public class ISS implements Serializable, Runnable{
 		String formatted = String.format("%05d", num); 
 		myDataMap.put("Station number: ", formatted);
 		myRainDataPoint = new LinkedList<>();
-		myRainDataPoint.add(new Double(rainSensor.getDataOne()));
-		myDataMap.put("Rain graph: ", myRainDataPoint.toString());
+		// generate 10 rain rate data points
+		for(int i = 0; i< 10; i++) {
+			rainSensor.updateData();
+			myRainDataPoint.add(new Double(rainSensor.getDataOne()));
+		}
+		String dataPoint = myRainDataPoint.toString().substring(1);
+		dataPoint = dataPoint.substring(0, dataPoint.length() - 1);
+		myDataMap.put("Rain graph: ", dataPoint);
 		
 		myThreads = new HashSet<Thread>();
 		for(Sensor s : mySensors) {
@@ -111,7 +117,6 @@ public class ISS implements Serializable, Runnable{
 	/**
 	 * Update myDataMap.
 	 */
-	@SuppressWarnings("deprecation")
 	public void updateMap() {
 		for(Sensor s : mySensors) {
 			if(s.toString().equals("Wind Direction Sensor")) {
@@ -131,18 +136,8 @@ public class ISS implements Serializable, Runnable{
 			} else if(s.toString().equals("Rain Sensor")) {
 				myDataMap.replace("Rain rate: ", s.getDataOne());
 				myDataMap.replace("Rain: ", s.getDataTwo());
-				if(myRainDataPoint.size() == 10) {
-					myRainDataPoint.remove();
-					myRainDataPoint.add(new Double(s.getDataOne()));
-				} else {
-					myRainDataPoint.add(new Double(s.getDataOne()));
-				}
 			}
 		}
-		// format data points
-		String dataPoint = myRainDataPoint.toString().substring(1);
-		dataPoint = dataPoint.substring(0, dataPoint.length() - 1);
-		myDataMap.put("Rain graph: ", dataPoint);
 	}
 	
 	/**
