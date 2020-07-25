@@ -14,7 +14,7 @@ public class DeserializedData extends Observable {
   /**
    * Number of given data.
    */
-  private static final int MAP_SIZE = 5;
+  private static final int MAP_SIZE = 14;
   
   /**
    * A hash map contains data name and its respective value. <br>

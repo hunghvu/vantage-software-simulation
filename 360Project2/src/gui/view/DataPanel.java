@@ -237,7 +237,7 @@ public class DataPanel extends JPanel implements Connect {
             myHumOut.setText(value + "%");
         }
         if(data.equals("Baro pressure")) {
-            myBaro.setText(value + "in");
+            myBaro.setText(value + "\"Hg");
         }
         if(data.equals("Solar")) {
             myUV.setText(value + "index");
