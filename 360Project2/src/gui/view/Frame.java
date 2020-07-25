@@ -13,7 +13,7 @@ public class Frame extends JFrame {
 
     private WindCompassPanel myWindCompassPanel;
 
-   // private GraphPanel myGraphPanel;
+    private GraphPanel myGraphPanel;
 
     private WeatherPanel myWeatherPanel;
 
@@ -21,13 +21,17 @@ public class Frame extends JFrame {
 
     private ButtonPanel myButtonPanel;
 
+    private MessagePanel myMessagePanel;
+
     private JPanel myLeftPanel;
     private JPanel myCenterPanel;
     private JPanel myRightPanel;
+    private JPanel myBottomPanel;
+
 
     public Frame() {
         super(TITLE);
-        setSize(new Dimension(1200,700));
+        setSize(new Dimension(1300,700));
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -36,37 +40,40 @@ public class Frame extends JFrame {
     }
     private void setupGUI() {
         myWindCompassPanel = new WindCompassPanel();
-     //   myGraphPanel = new GraphPanel();
-        myWeatherPanel = new WeatherPanel(); //commented out b/c NullPointerException when creating moonphase
+        myGraphPanel = new GraphPanel();
+        myWeatherPanel = new WeatherPanel();
         myDataPanel = new DataPanel();
         myButtonPanel = new ButtonPanel();
-        this.add(myWeatherPanel, BorderLayout.NORTH);
-        this.add(myDataPanel, BorderLayout.SOUTH);
+        myMessagePanel = new MessagePanel();
 
         myLeftPanel = new JPanel();
         myCenterPanel = new JPanel();
         myRightPanel = new JPanel();
+        myBottomPanel = new JPanel();
 
         myLeftPanel.add(myWindCompassPanel, BorderLayout.NORTH);
-    //    myLeftPanel.add(myGraphPanel, BorderLayout.SOUTH);
+        myLeftPanel.add(myGraphPanel, BorderLayout.SOUTH);
 
         myCenterPanel.add(myWeatherPanel, BorderLayout.NORTH);
         myCenterPanel.add(myDataPanel, BorderLayout.SOUTH);
 
         myRightPanel.add(myButtonPanel, BorderLayout.CENTER);
 
+        myBottomPanel.add(myMessagePanel, BorderLayout.CENTER);
+
 
         this.add(myLeftPanel, BorderLayout.WEST);
         this.add(myCenterPanel, BorderLayout.CENTER);
         this.add(myRightPanel, BorderLayout.EAST);
+        this.add(myBottomPanel, BorderLayout.SOUTH);
     }
 
     public WindCompassPanel getMyWindCompassPanel(){
         return myWindCompassPanel;
     }
-//    public GraphPanel getMyGraphPanel(){
-//        return myGraphPanel;
-//    }
+    public GraphPanel getMyGraphPanel(){
+        return myGraphPanel;
+    }
     public WeatherPanel getMyWeatherPanel() {
         return myWeatherPanel;
     }
@@ -75,6 +82,9 @@ public class Frame extends JFrame {
     }
     public ButtonPanel getMyButtonPanel(){
         return myButtonPanel;
+    }
+    public MessagePanel getMyMessagePanel(){
+        return myMessagePanel;
     }
 
 }
