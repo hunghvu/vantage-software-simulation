@@ -55,9 +55,9 @@ public class TemperatureSensor implements Sensor{
 		myTempIn += RANDOM.nextDouble();
 		myTempIn = Math.round(myTempIn * 100.0) / 100.0;
 		if(myTempIn > 76) {
-			myTempOut = 76;
-		}else if(myTempOut < 68) {
-			myTempOut = 68;
+			myTempIn = 76;
+		}else if(myTempIn < 68) {
+			myTempIn = 68;
 		}
 	}
 	
