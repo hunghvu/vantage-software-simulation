@@ -87,7 +87,12 @@ public class ISS implements Serializable, Runnable{
 		Random random = new Random();
 		int hour = random.nextInt(6) + 4;
 		int min = random.nextInt(60);
-		String sunriseTime = "0" + String.valueOf(hour) + ":" + String.valueOf(min);
+		String sunriseTime;
+		if(min < 10) {
+			sunriseTime = "0" + String.valueOf(hour) + ":0" + String.valueOf(min);
+		}else {
+			sunriseTime = "0" + String.valueOf(hour) + ":" + String.valueOf(min);
+		}
 		myDataMap.put("Sunrise time: ", sunriseTime);
 		myDataMap.put("Baro pressure: ", baroSensor.getDataOne());
 		myDataMap.put("Baro trend: ", baroSensor.getDataTwo());
