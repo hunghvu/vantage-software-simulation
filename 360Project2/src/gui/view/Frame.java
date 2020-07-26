@@ -50,7 +50,7 @@ public class Frame extends JFrame {
         myCenterPanel = new JPanel();
         myRightPanel = new JPanel();
 
-
+        myLeftPanel.setLayout(new BorderLayout());
         myLeftPanel.add(myWindCompassPanel, BorderLayout.NORTH);
         myLeftPanel.add(myGraphPanel, BorderLayout.SOUTH);
 
