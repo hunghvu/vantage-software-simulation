@@ -39,7 +39,12 @@ public class DataPanel extends JPanel implements Connect {
     private final JLabel myUmbrella;
     private final JLabel myBaroTrend;
     private final JLabel myStationNumber;
-
+    
+    //Unit indicator (Hung Vu)
+    private static boolean myTempUnit = true;
+    private static boolean myChillUnit = true;
+    private static boolean myBaroUnit = true;
+    private static boolean myRainRateUnit = true;
     /**
      * Construct the data panel
      */
@@ -211,34 +216,83 @@ public class DataPanel extends JPanel implements Connect {
         }
 
     }
+    
+    
+    // Setter for class-level fields. (Hung Vu)
+    public static void setMyTempUnit(boolean theTempUnit) {
+      DataPanel.myTempUnit = theTempUnit;
+    }
 
+    public static void setMyBaroUnit(boolean theBaroUnit) {
+      DataPanel.myBaroUnit = theBaroUnit;
+    }
+
+    public static void setMyChillUnit(boolean theChillUnit) {
+      DataPanel.myChillUnit = theChillUnit;
+    }
+
+    public static void setMyRainRateUnit(boolean theRainRateUnit) {
+      DataPanel.myRainRateUnit = theRainRateUnit;
+    }
+    
+    // Update to reflect the buttons interaction. (Hung Vu)
     @Override
     public void changeDisplay(String data, String value) {
 
         String fahrenheit = "F";
+        
+        //Add inner cases to work with unit states. (Hung Vu)
+        
         if(data.equals("Temp out")) {
+          if (myTempUnit) {
             myTempOut.setText(value + fahrenheit);
+          } else {
+            System.out.println(myTempUnit);
+            final double celcius = (Double.valueOf(value) - 32) * 5 / 9;
+            myTempOut.setText(String.format("%.2f", celcius) + "C");               
+          }
         }
         if(data.equals("Temp in")) {
+          if (myTempUnit) {
             myTempIn.setText(value + fahrenheit);
+          } else {
+            final double celcius = (Double.valueOf(value) - 32) * 5 / 9;
+            myTempIn.setText(String.format("%.2f", celcius) + "C");
+          }
         }
         if(data.equals("Hum out")) {
             myHumOut.setText(value + "%");
         }
         if(data.equals("Baro pressure")) {
+          if (myBaroUnit) {
             myBaro.setText(value + "\"Hg");
+          } else {
+            final double mmHg = Double.valueOf(value) * 25.4;
+            myBaro.setText(String.format("%.2f", mmHg) + "mmHG");
+          }
         }
         if(data.equals("Hum in")) {
             myHumIn.setText(value + "%");
         }
         if(data.equals("Wind chill")) {
+          if (myChillUnit) {
             myChill.setText(value + fahrenheit);
+          } else {
+            final double celcius = (Double.valueOf(value) - 32) * 5 / 9;
+            myChill.setText(String.format("%.2f", celcius) + "C");
+          }
+          
         }
         if(data.equals("Rain")) {
             myDailyRain.setText(value + "in");
         }
         if(data.equals("Rain rate")) {
+          if (myRainRateUnit) {
             myRainRate.setText(value + "in/hr");
+          } else {
+            final double mmHr = Double.valueOf(value) * 25.4;
+            myRainRate.setText(String.format("%.2f", mmHr) + "mm/hr");
+          }
         }
         if(data.equals("Baro trend")) {
             if (value.equals("Steady")) {

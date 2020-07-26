@@ -129,6 +129,14 @@ public class ButtonPanel extends JPanel {
     
     /** Contains arrow buttons. */
     private JPanel bottomPanel = new JPanel();
+    
+    //State of buttons, represents how unit will be changed after a press. (Hung Vu)
+    private static boolean myTempUnit = false;
+    private static boolean myWindUnit = false;
+    private static boolean myChillUnit = false;
+    private static boolean myBarUnit = false;
+    private static boolean myRainyrUnit = false;
+    private static boolean myDisplayForecast = false;
 
     /**
      * Constructor that instantiates the buttons.
@@ -160,6 +168,7 @@ public class ButtonPanel extends JPanel {
     }
 
     /** Method that adds listeners to buttons. */
+    // Add action listener for Temp, Wind, Chill, Bar, Rainyr (Hung Vu)
     private void addListeners() {
         
         int[] secClick = {0}; //gets around enclosing variable error when using lambdas
@@ -197,6 +206,38 @@ public class ButtonPanel extends JPanel {
         });
         
         //TODO implement some buttons after graph
+        
+        //Main function for buttons (Hung Vu).
+        myTempBtn.addActionListener(theEvent -> {
+          DataPanel.setMyTempUnit(myTempUnit);
+          myTempUnit = !myTempUnit;
+        });
+        
+        myChillBtn.addActionListener(theEvent -> {
+          DataPanel.setMyChillUnit(myChillUnit);
+          myChillUnit = !myChillUnit;
+        });
+        
+        myBarBtn.addActionListener(theEvent -> {
+          DataPanel.setMyBaroUnit(myBarUnit);
+          myBarUnit = !myBarUnit;
+        });
+        
+        myRainYrBtn.addActionListener(theEvent -> {
+          DataPanel.setMyRainRateUnit(myRainyrUnit);
+          myRainyrUnit = !myRainyrUnit;
+        });
+        
+        myWindBtn.addActionListener(theEvent -> {
+          WindCompassPanel.setMyWindSpeedUnit(myWindUnit);
+          myWindUnit = !myWindUnit;
+        });
+        
+        myForecastBtn.addActionListener(theEvent -> {
+          WeatherPanel.getMyweathericon().setVisible(myDisplayForecast);
+          myDisplayForecast = !myDisplayForecast;
+        });
+        
     }
 
     /** Method that sets up layout of buttons. */

@@ -17,9 +17,10 @@ public class WeatherPanel extends JPanel implements Connect {
     private static final Dimension BOARD_SIZE = new Dimension(700, 100);
     private static final Font dataFontMed = new Font("Courier New", Font.BOLD, 20);
     private static final EmptyBorder border = new EmptyBorder(5, 20, 5, 20);
-
+    
+    //Adjustment to myWeatherIcon to interact with button. (Hung Vu)
     /** Label for the weather icon.*/
-    private final JLabel myWeatherIcon;
+    private static final JLabel myWeatherIcon = new JLabel( );
     /** Label for the moon icon.*/
     private final JLabel myMoonIcon;
     /** Label for the current time.*/
@@ -40,7 +41,7 @@ public class WeatherPanel extends JPanel implements Connect {
         this.setMinimumSize(BOARD_SIZE);
         this.setVisible(true);
 
-        myWeatherIcon = new JLabel( );
+
         myMoonIcon = new JLabel( );
         myTime = new JLabel( );
         myDate = new JLabel( );
@@ -53,6 +54,11 @@ public class WeatherPanel extends JPanel implements Connect {
         determineWeather();
         generateRandForMoonPhase();
         findCurrentDateAndTime();
+    }
+    
+    //Getter to access weather icon.
+    public static JLabel getMyweathericon() {
+      return myWeatherIcon;
     }
 
     /**

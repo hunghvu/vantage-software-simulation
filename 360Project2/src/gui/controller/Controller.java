@@ -184,7 +184,7 @@ public class Controller implements Observer, Runnable {
           
         } else if (entry.getKey().equals("Rain graph")){
           
-//          myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
+//          myFrame.getMyGraphPanel().changeDisplay(entry.getKey(), entry.getValue());
           // Haven't implemented (07-24)
           
         } 
