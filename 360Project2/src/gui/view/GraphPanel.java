@@ -1,14 +1,13 @@
 package gui.view;
 
-<<<<<<< HEAD
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-=======
 import gui.model.Connect;
 
 import javax.swing.*;
->>>>>>> 0afd6523d7173001a1a6dfc578db5f00cce4480a
+
 
 import javax.swing.JPanel;
 
@@ -39,7 +38,8 @@ public class GraphPanel extends JPanel implements Connect {
     private void setUpPanel() {
        this.setPreferredSize(PANEL_SIZE); 
 
-
+    }
+    
     @Override
     public void changeDisplay(String data, String value) {
 
