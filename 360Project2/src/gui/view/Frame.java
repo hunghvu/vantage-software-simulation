@@ -26,12 +26,12 @@ public class Frame extends JFrame {
     private JPanel myLeftPanel;
     private JPanel myCenterPanel;
     private JPanel myRightPanel;
-    private JPanel myBottomPanel;
+
 
 
     public Frame() {
         super(TITLE);
-        setSize(new Dimension(1300,700));
+        setSize(new Dimension(1300,800));
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -49,23 +49,24 @@ public class Frame extends JFrame {
         myLeftPanel = new JPanel();
         myCenterPanel = new JPanel();
         myRightPanel = new JPanel();
-        myBottomPanel = new JPanel();
+
 
         myLeftPanel.add(myWindCompassPanel, BorderLayout.NORTH);
         myLeftPanel.add(myGraphPanel, BorderLayout.SOUTH);
 
         myCenterPanel.add(myWeatherPanel, BorderLayout.NORTH);
-        myCenterPanel.add(myDataPanel, BorderLayout.SOUTH);
+        myCenterPanel.add(myDataPanel, BorderLayout.CENTER);
+        myCenterPanel.add(myMessagePanel, BorderLayout.SOUTH);
 
         myRightPanel.add(myButtonPanel, BorderLayout.CENTER);
 
-        myBottomPanel.add(myMessagePanel, BorderLayout.CENTER);
+
 
 
         this.add(myLeftPanel, BorderLayout.WEST);
         this.add(myCenterPanel, BorderLayout.CENTER);
         this.add(myRightPanel, BorderLayout.EAST);
-        this.add(myBottomPanel, BorderLayout.SOUTH);
+
     }
 
     public WindCompassPanel getMyWindCompassPanel(){

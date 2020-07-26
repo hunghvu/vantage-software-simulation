@@ -197,7 +197,13 @@ public class Controller implements Observer, Runnable {
           DESERIALIZED_DATA.getData().get("Rain rate")
           
           );
-      
+      myFrame.getMyMessagePanel().changeDisplay(
+
+              DESERIALIZED_DATA.getData().get("Temp out"),
+              DESERIALIZED_DATA.getData().get("Hum out"),
+              DESERIALIZED_DATA.getData().get("Rain rate")
+
+      );
 //      // 10 rain rate points in string format
 //      String dataPoints = DESERIALIZED_DATA.getData().get("Rain graph");
 //      

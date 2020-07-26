@@ -24,7 +24,7 @@ import gui.model.DeserializedData;
  * @author My Huynh
  */
 public class DataPanel extends JPanel implements Connect {
-    private static final Dimension BOARD_SIZE = new Dimension(700, 600);
+    private static final Dimension BOARD_SIZE = new Dimension(700, 500);
     private static final Font dataFontSmall = new Font("Courier New", Font.BOLD, 16);
     private static final Font dataFontBig = new Font("Courier New", Font.BOLD, 26);
 
