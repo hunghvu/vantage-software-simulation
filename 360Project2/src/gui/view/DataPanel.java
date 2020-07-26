@@ -78,6 +78,7 @@ public class DataPanel extends JPanel implements Connect {
         JLabel chillLabel = new JLabel("CHILL");
         JLabel dailyRainLabel = new JLabel("DAILY");
         JLabel rainRateLabel = new JLabel("RAIN RATE");
+        JLabel stationNumberLabel = new JLabel("STATION NO.");
 
         // set font for each label
         tempOutLabel.setFont(dataFontSmall);
@@ -88,6 +89,7 @@ public class DataPanel extends JPanel implements Connect {
         chillLabel.setFont(dataFontSmall);
         dailyRainLabel.setFont(dataFontSmall);
         rainRateLabel.setFont(dataFontSmall);
+        stationNumberLabel.setFont(dataFontSmall);
 
         // set font for data
         myTempOut.setFont(dataFontBig);
@@ -98,6 +100,7 @@ public class DataPanel extends JPanel implements Connect {
         myChill.setFont(dataFontBig);
         myDailyRain.setFont(dataFontBig);
         myRainRate.setFont(dataFontBig);
+        myStationNumber.setFont(dataFontSmall);
 
         generateUmbrellaSymbol();
 
@@ -139,7 +142,8 @@ public class DataPanel extends JPanel implements Connect {
         umbrellaPanel.add(myUmbrella, BorderLayout.SOUTH);
 
         JPanel stationNumberPanel = new JPanel(new BorderLayout());
-        stationNumberPanel.add(myStationNumber, BorderLayout.CENTER);
+        stationNumberPanel.add(stationNumberLabel, BorderLayout.WEST);
+        stationNumberPanel.add(myStationNumber, BorderLayout.EAST);
 
 
         // layout data
@@ -147,7 +151,7 @@ public class DataPanel extends JPanel implements Connect {
         this.setLayout(gbl);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(30, 30, 30, 30);
+        gbc.insets = new Insets(30, 30, 0, 30);
         gbc.gridwidth = 2;
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -160,14 +164,14 @@ public class DataPanel extends JPanel implements Connect {
         gbc.gridx = 4;
         gbc.gridy = 0;
         this.add(baroPanel, gbc);
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 3;
         gbc.gridx = 0;
         gbc.gridy = 1;
         this.add(tempInPanel, gbc);
         gbc.gridwidth = 2;
         gbc.gridx = 2;
         gbc.gridy = 1;
-        this.add(humInLabel, gbc);
+        this.add(humInPanel, gbc);
         gbc.gridwidth = 2;
         gbc.gridx = 4;
         gbc.gridy = 1;
@@ -185,9 +189,10 @@ public class DataPanel extends JPanel implements Connect {
         gbc.gridy = 2;
         this.add(rainRatePanel, gbc);
         gbc.gridwidth = 2;
-        gbc.gridx = 1;
+        gbc.gridx = 0;
         gbc.gridy = 3;
         this.add(stationNumberPanel, gbc);
+
     }
 
     /**
@@ -250,10 +255,9 @@ public class DataPanel extends JPanel implements Connect {
                         .getImage( ).getScaledInstance(15, 15, Image.SCALE_SMOOTH)));
             }
         }
-        // Change "Number" to lower case - Hung Vu
+
         if(data.equals("Station number")) {
-            myStationNumber.setText("STATION NO." + value);
-            myStationNumber.setFont(dataFontSmall);
+            myStationNumber.setText(value);
         }
     }
 
