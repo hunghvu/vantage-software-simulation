@@ -1,9 +1,4 @@
 package Driver;
-/*
- * ISS.java
- * Seungku Kim
- */
-
 
 import java.io.*;
 import java.util.ArrayList;
@@ -28,7 +23,14 @@ import sensors.WindSpeedSensor;
  * and send it out to serialized data for output devices to use
  * @author Seungku Kim, Zitao Yu
  */
+@SuppressWarnings("serial")
 public class ISS implements Serializable, Runnable{
+	
+	/**
+	 * Random object to generate random number.
+	 */
+	private static final Random RANDOM = new Random(); 
+	
 	/**
 	 * List for sensors.
 	 */
@@ -83,10 +85,10 @@ public class ISS implements Serializable, Runnable{
 		dataPoint = dataPoint.substring(0, dataPoint.length() - 1);
 		myDataMap.put("Wind direction: ", windDirSensor.getDataTwo() );
 		myDataMap.put("Wind speed: ", windSpdSensor.getDataOne());
+		
 		// generate random sunrise time
-		Random random = new Random();
-		int hour = random.nextInt(6) + 4;
-		int min = random.nextInt(60);
+		int hour = RANDOM.nextInt(6) + 4;
+		int min = RANDOM.nextInt(60);
 		String sunriseTime;
 		if(min < 10) {
 			sunriseTime = "0" + String.valueOf(hour) + ":0" + String.valueOf(min);
@@ -94,9 +96,15 @@ public class ISS implements Serializable, Runnable{
 			sunriseTime = "0" + String.valueOf(hour) + ":" + String.valueOf(min);
 		}
 		myDataMap.put("Sunrise time: ", sunriseTime);
+		
 		myDataMap.put("Baro pressure: ", baroSensor.getDataOne());
 		myDataMap.put("Baro trend: ", baroSensor.getDataTwo());
-		myDataMap.put("Wind chill: ", windSpdSensor.getDataTwo());
+		
+		// calculate wind chill
+		double windChill = Double.parseDouble(tempSensor.getDataOne()) - (RANDOM.nextInt(66) + 15);
+		windChill = Math.round(windChill * 100.0) / 100.0;
+		myDataMap.put("Wind chill: ", String.valueOf(windChill));
+		
 		myDataMap.put("Temp in: ", tempSensor.getDataTwo());
 		myDataMap.put("Temp out: ", tempSensor.getDataOne());
 		myDataMap.put("Hum in: ", humSensor.getDataTwo());
@@ -104,7 +112,7 @@ public class ISS implements Serializable, Runnable{
 		myDataMap.put("Rain rate: ", rainSensor.getDataOne());
 		myDataMap.put("Rain: ", rainSensor.getDataTwo());
 		// generate random station number
-		int num = random.nextInt(100000);
+		int num = RANDOM.nextInt(100000);
 		String formatted = String.format("%05d", num); 
 		myDataMap.put("Station number: ", formatted);
 		myDataMap.put("Rain graph: ", dataPoint);
@@ -122,6 +130,7 @@ public class ISS implements Serializable, Runnable{
 	/**
 	 * Update myDataMap.
 	 */
+	@SuppressWarnings("deprecation")
 	public void updateMap() {
 		for(Sensor s : mySensors) {
 			if(s.toString().equals("Wind Direction Sensor")) {
@@ -129,12 +138,15 @@ public class ISS implements Serializable, Runnable{
 			}  else if(s.toString().equals("Temperature Sensor")) {
 				myDataMap.replace("Temp out: ", s.getDataOne());
 				myDataMap.replace("Temp in: ", s.getDataTwo());
+				double windChill = Double.parseDouble(s.getDataOne()) - (RANDOM.nextInt(66) + 15);
+				windChill = Math.round(windChill * 100.0) / 100.0;
+				myDataMap.put("Wind chill: ", String.valueOf(windChill));
 			} else if(s.toString().equals("Humidity Sensor")) {
 				myDataMap.replace("Hum out: ", s.getDataOne());
 				myDataMap.replace("Hum in: ", s.getDataTwo());
 			} else if(s.toString().equals("Wind Speed Sensor")){
 				myDataMap.replace("Wind speed: ", s.getDataOne());
-				myDataMap.replace("Wind chill: ", s.getDataTwo());
+				//myDataMap.replace("Wind chill: ", s.getDataTwo());
 			} else if(s.toString().equals("Barometric Sensor")) {
 				myDataMap.replace("Baro pressure: ", s.getDataOne());
 				myDataMap.replace("Baro trend: ", s.getDataTwo());
