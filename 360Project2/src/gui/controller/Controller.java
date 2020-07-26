@@ -140,6 +140,7 @@ public class Controller implements Observer, Runnable {
           myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
           // Haven't implemented (07-24)
           // Not working (07-25)
+          // Done (07-26)
           
         } else if (entry.getKey().equals("Wind direction")){
           
@@ -179,6 +180,7 @@ public class Controller implements Observer, Runnable {
           myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
           // Haven't implemented (07-24)
           // Not working (07-25)
+          // Done (07-26)
           
         } else if (entry.getKey().equals("Rain graph")){
           
@@ -197,6 +199,8 @@ public class Controller implements Observer, Runnable {
           DESERIALIZED_DATA.getData().get("Rain rate")
           
           );
+      
+      // Display statement about current weather state.
       myFrame.getMyMessagePanel().changeDisplay(
 
               DESERIALIZED_DATA.getData().get("Temp out"),
