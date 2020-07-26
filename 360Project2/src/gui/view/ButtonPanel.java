@@ -18,14 +18,11 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class ButtonPanel extends JPanel {
 
-
     /** ButtonPanel dimensions (width, height). */
     private static final Dimension PANEL_SIZE = new Dimension(300, 700);
 
     /** Left and right subpanel dimensions (width, height). */
     private static final Dimension SUBPANEL_SIZE = new Dimension(PANEL_SIZE.width/2, 500);
-
-
 
     /** Font for button label. */
     private static final Font FONT = new Font("Avenir", Font.PLAIN, 12);
@@ -198,6 +195,8 @@ public class ButtonPanel extends JPanel {
             }
             secClick[0] = secClick[0] + 1;
         });
+        
+        //TODO implement some buttons after graph
     }
 
     /** Method that sets up layout of buttons. */
@@ -239,6 +238,8 @@ public class ButtonPanel extends JPanel {
             rightPanel.add(right[i], con);
             rightPanel.add(right2nd[i], con);
         }
+        
+        //TODO BottomPanel with Arrows to be implemented if have time
     }
 
     private void addComponents() {
@@ -247,15 +248,6 @@ public class ButtonPanel extends JPanel {
         this.add(topPanel, BorderLayout.NORTH);
         this.add(bottomPanel, BorderLayout.SOUTH);
     }
-
-
-
-
-
-
-
-
-
 
 
 }
