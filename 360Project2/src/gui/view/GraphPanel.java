@@ -1,6 +1,7 @@
 package gui.view;
 
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -12,8 +13,6 @@ import java.awt.RenderingHints;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import gui.model.Connect;
@@ -31,17 +30,17 @@ public class GraphPanel extends JPanel implements Connect {
     private static final Dimension PANEL_SIZE = new Dimension(405, 360);
     
     /** Font for lettered labels. */
-    private static final Font FONT = new Font("Avenir", Font.PLAIN, 8);
+    private static final Font FONT = new Font("Courier New", Font.BOLD, 10);
     
-    private static final Color LINE = Color.white;
+    /** Color for axes, tick, numberings. */
+    private static final Color LINE = Color.black;
     
+    /** Color for grid lines. */
     private static final Color GRID = Color.gray;
     
-    private static final Color PTLINE = new Color(131, 191, 255);
-    
-    private static final Color POINT = new Color(50, 150, 255);
+    /** Color for graph line. */
+    private static final Color GRAPH = new Color(71, 160, 255);
 
-    
     /** Padding for whole GraphPannel. */
     private static final int PADDING = 15;
     
@@ -53,7 +52,7 @@ public class GraphPanel extends JPanel implements Connect {
     
     
     /** Contains graph data with 20 values. */
-    private List<Double> myData = new ArrayList<>(20);
+    private List<Double> myData = new ArrayList<>(10);
     
     /** Translated data to points. */
     private List<Point> myDataPoints = new ArrayList<>();
@@ -77,16 +76,18 @@ public class GraphPanel extends JPanel implements Connect {
     /** Constructor that sets up components. */
     public GraphPanel() {
         super();
+        //String test = "26.21, 23.7, 21.92, 20.71, 21.28, 23.21, 26.99, 25.45, 25.48, 25.28"; //test values
+        //String[] temp = test.split(", "); //test values
         
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             myData.add(0.0);
+            //myData.add(Double.parseDouble(temp[i])); //test values
         }
         
         setUpPanel();
         
         
-        this.setBackground(Color.black); //test size
-        addLabels();
+        //this.setBackground(Color.black); //test size
         
     }
     
@@ -102,17 +103,20 @@ public class GraphPanel extends JPanel implements Connect {
         createPoints(g2);
         createAxesGrid(g2);
         connectPoints(g2);
-        
-        
+        addLabels(g2);
+
     }
     
     private void createPoints(Graphics2D g2) { 
         double xScale = (myGraphWidth) / (myData.size() - 1);
         double yScale = (myGraphHeight) / 42; //42 is the y axis max value 
-         
+        final int marginOfError = 6;
+        
         for (int i = 0; i < myData.size(); i++) {
             int x = (int) (i * xScale + PADDING + LABEL_PADDING);
-            int y = (int) (i * yScale + PADDING + LABEL_PADDING);
+            int y = (this.getHeight() - 2 * PADDING - 2*LABEL_PADDING) - (int) (myData.get(i) * yScale) ;
+            if (myData.get(i) > 0.0)
+                y -= marginOfError;
             myDataPoints.add(new Point(x, y));
         }
     }
@@ -127,16 +131,12 @@ public class GraphPanel extends JPanel implements Connect {
         g2.drawLine(PADDING + LABEL_PADDING, this.getHeight() - 2*PADDING - 2*LABEL_PADDING, 
                 PADDING + LABEL_PADDING, PADDING + LABEL_PADDING);
         
-        g2.drawLine(PADDING, this.getHeight() - PADDING, PADDING, PADDING); //see padding
-        g2.drawLine(PADDING, this.getHeight() - PADDING, this.getWidth()-PADDING, this.getHeight()-PADDING); //padding
-        g2.drawLine(PADDING, this.getHeight()-PADDING-LABEL_PADDING, this.getWidth()-PADDING, this.getHeight()-PADDING-LABEL_PADDING); //label padding
-        
         
         // x axis
         for (int i = 0; i < myData.size(); i++) {
             //tick marks
             g2.setColor(LINE);
-            int x1 = PADDING + LABEL_PADDING + i*myGraphWidth/(myData.size()-1); //20 ticks
+            int x1 = PADDING + LABEL_PADDING + i*myGraphWidth/(myData.size()-1); //10 ticks
             int x2 = x1;
             int y1 = this.getHeight() - 2*PADDING - 2*LABEL_PADDING;
             int y2 = y1 + TICK;
@@ -157,14 +157,13 @@ public class GraphPanel extends JPanel implements Connect {
         }
         
         // y axis
-        for (int i = 0; i < myData.size()* 59 / 80 + 1; i++) { //the graph has a 59:80 ratio
+        for (int i = 0; i < 2* myData.size()* 59 / 80 + 1; i++) { //the graph has a 59:80 ratio
             //ticks
             g2.setColor(LINE);
             int x1 = PADDING + LABEL_PADDING;
             int x2 = x1 - TICK;
-            int y1 = this.getHeight() - 2*PADDING - 2*LABEL_PADDING - i*myGraphHeight/(myData.size()* 59 / 80); //15 ticks
+            int y1 = this.getHeight() - 2*PADDING - 2*LABEL_PADDING - i*myGraphHeight/(2 * myData.size()* 59 / 80); //15 ticks
             int y2 = y1;
-            g2.setColor(Color.white);
             g2.drawLine(x1, y1, x2, y2);
             
             //numberings
@@ -184,37 +183,33 @@ public class GraphPanel extends JPanel implements Connect {
     }
     
     private void connectPoints(Graphics2D g2) { 
+        g2.setColor(GRAPH);
+        g2.setStroke(new BasicStroke(2f));
+        
         for (int i = 0; i < myDataPoints.size() - 1; i++) {
-            
-        }
-        
-        final int pointWidth = 4;
-        
-        
+            g2.drawLine(myDataPoints.get(i).x, myDataPoints.get(i).y, myDataPoints.get(i+1).x, myDataPoints.get(i+1).y);
+        }  
     }
     
-    private void addLabels() {
-        JLabel min_max = new JLabel("MIN: " + myMin + "\tMAX: " + myMax);
-        min_max.setFont(FONT);
-        //set location
-      //this.add(min_max);
+    private void addLabels(Graphics2D g2) {
+        g2.setColor(LINE);
+        g2.setFont(new Font("Courier New", Font.BOLD, 14));
         
-        JLabel period = new JLabel("Last 10 hours");
-        period.setFont(FONT);
-        //set location
-        //this.add(period);
+        String title = new String("RAIN RATE/HR");
+        g2.drawString(title, PADDING, PADDING);
         
-        JLabel interval = new JLabel("Every 30 minutes");
-        interval.setFont(FONT);
-        //set location
-        //this.add(interval);
+        String min_max = "MIN: " + myMin + "        " + "MAX: " + myMax;
+        g2.drawString(min_max, PADDING, this.getHeight() - PADDING - LABEL_PADDING/2);
         
-        JLabel title = new JLabel("RAIN RATE/HR");
-        title.setFont(new Font("Avenir", Font.BOLD, 12));
-        title.setLocation(0, this.getY()+PADDING);
-        //this.add(title);
+        g2.setFont(FONT);
+        String period = new String("Last 10 hours");
+        g2.drawString(period, PADDING + LABEL_PADDING, PADDING + LABEL_PADDING - g2.getFontMetrics().getHeight()/2);
         
+        String interval = "Every 30 minutes";
+        g2.drawString(interval, PADDING + LABEL_PADDING + myGraphWidth*4/9, PADDING + LABEL_PADDING - g2.getFontMetrics().getHeight()/2);
+          
     }
+    
     /** Sets up panel properties. */
     private void setUpPanel() {
        this.setPreferredSize(PANEL_SIZE); 
@@ -232,17 +227,18 @@ public class GraphPanel extends JPanel implements Connect {
     
     @Override
     public void changeDisplay(String data, String value) {
-        myFlag = data;
-        try {
-            String[] split = value.split(", ");
-            for (int i = 0; i < split.length; i++) {
-                myData.set(i, Double.parseDouble(split[i]));
+        if (data.equals("Rain graph")) {
+            try {
+                String[] split = value.split(", ");
+                for (int i = 0; i < split.length; i++) {
+                    myData.set(i, Double.parseDouble(split[i]));
+                }
+                determineMinMax();
+            } catch(NumberFormatException theNFE) {
+                System.out.println("Problem parsing String to double. Location: GraphPanel, changeDisplay(String data, String value)");     
             }
-            determineMinMax();
-        } catch(NumberFormatException theNFE) {
-            System.out.println("Problem parsing String to double. Location: GraphPanel, changeDisplay(String data, String value)");     
+            this.repaint();            
         }
-        this.repaint();
     }
 
     @Override
