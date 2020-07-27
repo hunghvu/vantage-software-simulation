@@ -4,15 +4,17 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
  * A class for the console buttons.
  *
- * @author Khue Nguyen
+ * @author Khue Nguyen, Hung Vu
  * @version Jul 18, 2020
  */
 @SuppressWarnings("serial")
@@ -116,6 +118,18 @@ public class ButtonPanel extends JPanel {
     /** Contains all secondary buttons on right side. */
     private JButton[] right2nd = {mySecondBtn, myTimeBtn, myUnitsBtn, myClearBtn, mySetBtn, myDoneBtn};    
     
+    //arrow buttons
+    /** Up arrow button. */
+    JButton myUpBtn = new JButton();
+    
+    /** Down arrow button. */
+    JButton myDownBtn = new JButton();
+    
+    /** Left arrow button. */
+    JButton myLeftBtn = new JButton();
+    
+    /** Right arrow button. */
+    JButton myRightBtn = new JButton();
     
     //panels
     /** Panel to contain all buttons on left side. */
@@ -130,7 +144,7 @@ public class ButtonPanel extends JPanel {
     /** Contains arrow buttons. */
     private JPanel bottomPanel = new JPanel();
     
-    //State of buttons, represents how unit will be changed after a press. (Hung Vu)
+    /** State of buttons, represents how unit will be changed after a press. (Hung Vu) */
     private static boolean myTempUnit = false;
     private static boolean myWindUnit = false;
     private static boolean myChillUnit = false;
@@ -138,9 +152,7 @@ public class ButtonPanel extends JPanel {
     private static boolean myRainyrUnit = false;
     private static boolean myDisplayForecast = false;
 
-    /**
-     * Constructor that instantiates the buttons.
-     */
+    /** Constructor that instantiates the buttons. */
     public ButtonPanel() {
         super();
 
@@ -157,6 +169,7 @@ public class ButtonPanel extends JPanel {
         this.setLayout(new BorderLayout());
 
         topPanel.setLayout(new BorderLayout());
+        topPanel.setVisible(true);
         
         leftPanel.setPreferredSize(SUBPANEL_SIZE);
         leftPanel.setVisible(true);
@@ -165,6 +178,9 @@ public class ButtonPanel extends JPanel {
         rightPanel.setPreferredSize(SUBPANEL_SIZE); 
         rightPanel.setVisible(true);
         rightPanel.setLayout(new GridBagLayout());
+        
+        bottomPanel.setLayout(new GridBagLayout());
+        bottomPanel.setVisible(true);
     }
 
     /** Method that adds listeners to buttons. */
@@ -204,8 +220,6 @@ public class ButtonPanel extends JPanel {
             }
             secClick[0] = secClick[0] + 1;
         });
-        
-        //TODO implement some buttons after graph
         
         //Main function for buttons (Hung Vu).
         myTempBtn.addActionListener(theEvent -> {
@@ -280,7 +294,33 @@ public class ButtonPanel extends JPanel {
             rightPanel.add(right2nd[i], con);
         }
         
-        //TODO BottomPanel with Arrows to be implemented if have time
+        //arrow buttons
+        con.insets = new Insets(0,0,0,0);
+        
+        myUpBtn.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/icons/upbutton.png"))
+                .getImage().getScaledInstance(20, 50, Image.SCALE_SMOOTH)));
+        con.gridx = 1;
+        con.gridy = 0;
+        bottomPanel.add(myUpBtn, con);
+        
+        myDownBtn.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/icons/downbutton.png"))
+                .getImage().getScaledInstance(20, 50, Image.SCALE_SMOOTH)));
+        con.gridx = 1;
+        con.gridy = 2;
+        bottomPanel.add(myDownBtn, con);
+        
+        myLeftBtn.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/icons/leftbutton.png"))
+                .getImage().getScaledInstance(50, 20, Image.SCALE_SMOOTH)));
+        con.gridx = 0;
+        con.gridy = 1;
+        bottomPanel.add(myLeftBtn, con);
+        
+        myRightBtn.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/icons/rightbutton.png"))
+                .getImage().getScaledInstance(50, 20, Image.SCALE_SMOOTH)));
+        con.gridx = 2;
+        con.gridy = 1;
+        bottomPanel.add(myRightBtn, con);
+        
     }
 
     private void addComponents() {
