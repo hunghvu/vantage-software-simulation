@@ -9,7 +9,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class GraphPanel extends JPanel implements Connect {
     /** GraphPanel's size. */
     private static final Dimension PANEL_SIZE = new Dimension(405, 360);
 
-    /** Font for lettered labels. */
+    /** Font for small labels and numberings. */
     private static final Font FONT = new Font("Courier New", Font.BOLD, 10);
 
     /** Color for axes, tick, numberings. */
@@ -38,7 +37,7 @@ public class GraphPanel extends JPanel implements Connect {
     /** Color for grid lines. */
     private static final Color GRID = Color.gray;
 
-    /** Color for graph line. */
+    /** Color for graph points. */
     private static final Color GRAPH = new Color(0, 123, 255);
 
     /** Padding for whole GraphPannel. */
@@ -49,7 +48,6 @@ public class GraphPanel extends JPanel implements Connect {
 
     /** Tick width if y tick marks, tick height if x tick marks. */
     private static final int TICK = 6;
-
 
     /** Contains graph data with 20 values. */
     private List<Double> myData = new ArrayList<>(10);
@@ -69,13 +67,9 @@ public class GraphPanel extends JPanel implements Connect {
     /** Graph height. */
     private int myGraphHeight;
 
-    /** Boolean that sets Graphics2D line to background color in order to "erase". */
-    private boolean toErase;
-
     /** Constructor that sets up components. */
     public GraphPanel() {
         super();
-        toErase = false; 
 
         for (int i = 0; i < 10; i++) {
             myData.add(0.0);
@@ -126,6 +120,10 @@ public class GraphPanel extends JPanel implements Connect {
 
     }
 
+    /**
+     * Draws the points.
+     * @param g2 Graphics2D component used to draw with
+     */
     private void drawPoints(Graphics2D g2) { 
         g2.setColor(GRAPH);                      
                 
@@ -134,6 +132,11 @@ public class GraphPanel extends JPanel implements Connect {
         }  
     }
 
+    /**
+     * Draws x and y axes, tick marks, and numberings for each ticks.
+     * @param g2 Graphics2D component used to draw with
+     * @return
+     */
     private void createAxesGrid(Graphics2D g2) {
         g2.setColor(LINE);
         //x axis
@@ -194,7 +197,12 @@ public class GraphPanel extends JPanel implements Connect {
         }
     }
 
-
+    /**
+     * Adds labels that provide background info on the graph via drawString.
+     * Also provides min and max data.
+     * @param g2 Graphics2D component used to draw with
+     * @return
+     */
     private void addLabels(Graphics2D g2) {
         g2.setColor(LINE);
         g2.setFont(new Font("Courier New", Font.BOLD, 14));
@@ -220,6 +228,7 @@ public class GraphPanel extends JPanel implements Connect {
         this.setMinimumSize(PANEL_SIZE);
     }
 
+    /** Determine min and max data. */
     private void determineMinMax() {
         myMin = myData.get(0);
         myMax = myData.get(0);
@@ -263,4 +272,4 @@ public class GraphPanel extends JPanel implements Connect {
 }
 
 
-//https://stackoverflow.com/questions/8693342/drawing-a-simple-line-graph-in-java
+//Source: https://stackoverflow.com/questions/8693342/drawing-a-simple-line-graph-in-java
