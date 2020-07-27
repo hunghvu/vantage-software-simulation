@@ -21,10 +21,13 @@ import javax.swing.JPanel;
 public class ButtonPanel extends JPanel {
 
     /** ButtonPanel dimensions (width, height). */
-    private static final Dimension PANEL_SIZE = new Dimension(300, 700);
+    private static final Dimension PANEL_SIZE = new Dimension(250, 700);
 
     /** Left and right subpanel dimensions (width, height). */
     private static final Dimension SUBPANEL_SIZE = new Dimension(PANEL_SIZE.width/2, 500);
+    
+    /** Button dimension. */
+    private static final Dimension BUTTON_SIZE = new Dimension(90, 35);
 
     /** Font for button label. */
     private static final Font FONT = new Font("Avenir", Font.PLAIN, 12);
@@ -146,7 +149,7 @@ public class ButtonPanel extends JPanel {
     
     /** State of buttons, represents how unit will be changed after a press. (Hung Vu) */
     private static boolean myTempUnit = false;
-    private static boolean myWindUnit = false;
+//    private static boolean myWindUnit = false;
     private static boolean myChillUnit = false;
     private static boolean myBarUnit = false;
     private static boolean myRainyrUnit = false;
@@ -263,10 +266,10 @@ public class ButtonPanel extends JPanel {
         //left
         for (int i = 0; i < left.length; i++) {
             left[i].setFont(FONT);
-            left[i].setPreferredSize(new Dimension(80, 35));
+            left[i].setPreferredSize(BUTTON_SIZE);
             
             left2nd[i].setFont(FONT);
-            left2nd[i].setPreferredSize(new Dimension(80, 35));
+            left2nd[i].setPreferredSize(BUTTON_SIZE);
             left2nd[i].setVisible(false);
             left2nd[i].setEnabled(false);
             
@@ -279,10 +282,10 @@ public class ButtonPanel extends JPanel {
         //right
         for (int i = 0; i < right.length; i++) {
             right[i].setFont(FONT);
-            right[i].setPreferredSize(new Dimension(80, 35));
+            right[i].setPreferredSize(BUTTON_SIZE);
             
             right2nd[i].setFont(FONT);
-            right2nd[i].setPreferredSize(new Dimension(80, 35));
+            right2nd[i].setPreferredSize(BUTTON_SIZE);
             
             if (!right[i].equals(right2nd[i])) {
                 right2nd[i].setVisible(false);
@@ -295,28 +298,28 @@ public class ButtonPanel extends JPanel {
         }
         
         //arrow buttons
-        con.insets = new Insets(0,0,0,0);
+        con.insets = new Insets(2,2,2,2);
         
         myUpBtn.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/icons/upbutton.png"))
-                .getImage().getScaledInstance(20, 50, Image.SCALE_SMOOTH)));
+                .getImage().getScaledInstance(25, 50, Image.SCALE_SMOOTH)));
         con.gridx = 1;
         con.gridy = 0;
         bottomPanel.add(myUpBtn, con);
         
         myDownBtn.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/icons/downbutton.png"))
-                .getImage().getScaledInstance(20, 50, Image.SCALE_SMOOTH)));
+                .getImage().getScaledInstance(25, 50, Image.SCALE_SMOOTH)));
         con.gridx = 1;
         con.gridy = 2;
         bottomPanel.add(myDownBtn, con);
         
         myLeftBtn.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/icons/leftbutton.png"))
-                .getImage().getScaledInstance(50, 20, Image.SCALE_SMOOTH)));
+                .getImage().getScaledInstance(50, 25, Image.SCALE_SMOOTH)));
         con.gridx = 0;
         con.gridy = 1;
         bottomPanel.add(myLeftBtn, con);
         
         myRightBtn.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/icons/rightbutton.png"))
-                .getImage().getScaledInstance(50, 20, Image.SCALE_SMOOTH)));
+                .getImage().getScaledInstance(50, 25, Image.SCALE_SMOOTH)));
         con.gridx = 2;
         con.gridy = 1;
         bottomPanel.add(myRightBtn, con);
