@@ -11,17 +11,20 @@ import java.awt.*;
  * @author My Huynh
  */
 public class WindCompassPanel extends JLayeredPane implements Connect {
+    /** WindCompassPanel dimensions (width, height). */
     private static final Dimension BOARD_SIZE = new Dimension(300, 300);
 
+    /** Label for the compass.*/
     public final JLabel myCompassLabel;
+    /** Label for wind speed.*/
     public JLabel mySpeedLabel;
-    
-    // Speed unit indicator. (Hung vu)
-    private static boolean myWindSpeedUnit = true;
 
-    public static void setMyWindSpeedUnit(boolean myWindSpeedUnit) {
-      WindCompassPanel.myWindSpeedUnit = myWindSpeedUnit;
-    }
+//    // Speed unit indicator. (Hung vu)
+//    private static boolean myWindSpeedUnit = true;
+//
+//    public static void setMyWindSpeedUnit(boolean myWindSpeedUnit) {
+//      WindCompassPanel.myWindSpeedUnit = myWindSpeedUnit;
+//    }
 
     /**
      * Construct the panel
@@ -56,14 +59,11 @@ public class WindCompassPanel extends JLayeredPane implements Connect {
         this.add(mySpeedLabel);
 
     }
-    
-    //Update to reflect button interaction. (Hung Vu)
+
 
     @Override
     public void changeDisplay(String data, String value) {
         if(data.equals("Wind direction")) {
-//            myCompassLabel.removeAll();
-          //removeAll() cause NPE. repaint() and revalidate() are used as a workaround (Hung Vu)
             myCompassLabel.setIcon(new ImageIcon(new ImageIcon(getClass()
                     .getResource("/icons/"+ value +".png"))
                     .getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH)));
@@ -71,14 +71,8 @@ public class WindCompassPanel extends JLayeredPane implements Connect {
             revalidate();
         }
         if(data.equals("Wind speed")) {
-          if(myWindSpeedUnit) {
             long displaySpeed = Math.round(Float.parseFloat(value));
             mySpeedLabel.setText(Long.toString(displaySpeed));
-          } else {
-            //Unit conversion mph -> kmh (Hung Vu).
-            final double kmh = Double.valueOf(value) * 1.6;
-            mySpeedLabel.setText(String.format("%.0f", kmh));
-          }
         }
     }
 

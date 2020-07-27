@@ -242,10 +242,10 @@ public class ButtonPanel extends JPanel {
           myRainyrUnit = !myRainyrUnit;
         });
         
-        myWindBtn.addActionListener(theEvent -> {
-          WindCompassPanel.setMyWindSpeedUnit(myWindUnit);
-          myWindUnit = !myWindUnit;
-        });
+//        myWindBtn.addActionListener(theEvent -> {
+//          WindCompassPanel.setMyWindSpeedUnit(myWindUnit);
+//          myWindUnit = !myWindUnit;
+//        });
         
         myForecastBtn.addActionListener(theEvent -> {
           WeatherPanel.getMyweathericon().setVisible(myDisplayForecast);

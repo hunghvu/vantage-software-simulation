@@ -14,11 +14,13 @@ import java.awt.*;
  * @author My Huynh
  */
 public class WeatherPanel extends JPanel implements Connect {
+    /** WeatherPanel dimensions (width, height). */
     private static final Dimension BOARD_SIZE = new Dimension(700, 100);
+    /** Font size. */
     private static final Font dataFontMed = new Font("Courier New", Font.BOLD, 20);
+    /** Border between panels. */
     private static final EmptyBorder border = new EmptyBorder(5, 20, 5, 20);
-    
-    //Adjustment to myWeatherIcon to interact with button. (Hung Vu)
+
     /** Label for the weather icon.*/
     private static final JLabel myWeatherIcon = new JLabel( );
     /** Label for the moon icon.*/
@@ -28,8 +30,11 @@ public class WeatherPanel extends JPanel implements Connect {
     /** Label for the current date.*/
     private final JLabel myDate;
 
+    /** Temperature value. */
     private double myTemp;
+    /** Humidity value. */
     private double myHum;
+    /** Rain rate value. */
     private double myRainRate;
 
     /**
@@ -55,8 +60,10 @@ public class WeatherPanel extends JPanel implements Connect {
         generateRandForMoonPhase();
         findCurrentDateAndTime();
     }
-    
-    //Getter to access weather icon.
+
+    /**
+     * Getter to access weather icon.
+     */
     public static JLabel getMyweathericon() {
       return myWeatherIcon;
     }

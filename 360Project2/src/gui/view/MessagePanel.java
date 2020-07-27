@@ -5,16 +5,29 @@ import gui.model.Connect;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A panel to show weather message
+ * @author My Huynh
+ */
 public class MessagePanel extends JPanel implements Connect {
+    /** MessagePanel dimensions (width, height). */
     private static final Dimension BOARD_SIZE = new Dimension(700, 100);
+    /** Font size. */
     private static final Font dataFontBig = new Font("Courier New", Font.BOLD, 26);
 
+    /** Label for weather message. */
     private JLabel myMessage;
 
+    /** Temperature value. */
     private double myTemp;
+    /** Humidity value. */
     private double myHum;
+    /** Rain rate value. */
     private double myRainRate;
 
+    /**
+     * Constructs the message panel.
+     */
     public MessagePanel() {
         super( );
         this.setPreferredSize(BOARD_SIZE);
@@ -26,6 +39,9 @@ public class MessagePanel extends JPanel implements Connect {
         determineWeather();
     }
 
+    /**
+     * Determine the weather based on current weather data.
+     */
     private void determineWeather() {
 
         boolean cloud = myHum > 75;

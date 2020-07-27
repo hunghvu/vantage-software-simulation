@@ -24,26 +24,43 @@ import gui.model.DeserializedData;
  * @author My Huynh
  */
 public class DataPanel extends JPanel implements Connect {
+    /** DataPanel dimensions (width, height). */
     private static final Dimension BOARD_SIZE = new Dimension(700, 500);
+    /** Small font size. */
     private static final Font dataFontSmall = new Font("Courier New", Font.BOLD, 16);
+    /** Big font size. */
     private static final Font dataFontBig = new Font("Courier New", Font.BOLD, 26);
 
+    /** Label for temp out.*/
     private final JLabel myTempOut;
+    /** Label for temp in.*/
     private final JLabel myTempIn;
+    /** Label for hum out.*/
     private final JLabel myHumOut;
+    /** Label for hum in.*/
     private final JLabel myHumIn;
+    /** Label for barometric.*/
     private final JLabel myBaro;
+    /** Label for wind chill.*/
     private final JLabel myChill;
+    /** Label for daily rain.*/
     private final JLabel myDailyRain;
+    /** Label for rain rate.*/
     private final JLabel myRainRate;
+    /** Label for umbrella icon.*/
     private final JLabel myUmbrella;
+    /** Label for baro trend icon.*/
     private final JLabel myBaroTrend;
+    /** Label for station number.*/
     private final JLabel myStationNumber;
     
-    //Unit indicator (Hung Vu)
+    /** Unit indicator for temperature. */
     private static boolean myTempUnit = true;
+    /** Unit indicator for wind chill. */
     private static boolean myChillUnit = true;
+    /** Unit indicator for barometric. */
     private static boolean myBaroUnit = true;
+    /** Unit indicator for rain rate. */
     private static boolean myRainRateUnit = true;
     /**
      * Construct the data panel
@@ -216,21 +233,23 @@ public class DataPanel extends JPanel implements Connect {
         }
 
     }
-    
-    
-    // Setter for class-level fields. (Hung Vu)
+
+    /** Setter for temperature unit. */
     public static void setMyTempUnit(boolean theTempUnit) {
       DataPanel.myTempUnit = theTempUnit;
     }
 
+    /** Setter for barometric unit. */
     public static void setMyBaroUnit(boolean theBaroUnit) {
       DataPanel.myBaroUnit = theBaroUnit;
     }
 
+    /** Setter for wind chill unit. */
     public static void setMyChillUnit(boolean theChillUnit) {
       DataPanel.myChillUnit = theChillUnit;
     }
 
+    /** Setter for rain rate unit. */
     public static void setMyRainRateUnit(boolean theRainRateUnit) {
       DataPanel.myRainRateUnit = theRainRateUnit;
     }

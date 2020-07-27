@@ -9,26 +9,32 @@ import java.awt.*;
  * @author My Huynh
  */
 public class Frame extends JFrame {
+    /** Title of the frame. */
     private static final String TITLE = "Wireless Vantage Pro2 Console Receiver";
-
+    /** Panel for wind compass. */
     private WindCompassPanel myWindCompassPanel;
-
+    /** Panel for rain graph. */
     private GraphPanel myGraphPanel;
-
+    /** Panel for weather icon, moon phase, time and date. */
     private WeatherPanel myWeatherPanel;
-
+    /** Panel for data. */
     private DataPanel myDataPanel;
-
+    /** Panel for buttons. */
     private ButtonPanel myButtonPanel;
-
+    /** Panel for weather message. */
     private MessagePanel myMessagePanel;
 
+    /** Left Panel to contain wind compass and rain graph. */
     private JPanel myLeftPanel;
+    /** Center Panel to contain weather, data and message panels. */
     private JPanel myCenterPanel;
+    /** Right Panel to contain buttons. */
     private JPanel myRightPanel;
 
 
-
+    /**
+     * Constructs the GUI frame.
+     */
     public Frame() {
         super(TITLE);
         setSize(new Dimension(1300,800));
@@ -38,6 +44,9 @@ public class Frame extends JFrame {
         setupGUI();
 
     }
+    /**
+     * Method to sets up GUI components.
+     */
     private void setupGUI() {
         myWindCompassPanel = new WindCompassPanel();
         myGraphPanel = new GraphPanel();
@@ -69,21 +78,45 @@ public class Frame extends JFrame {
 
     }
 
+    /**
+     * Get method for wind compass panel
+     * @return wind compass panel
+     */
     public WindCompassPanel getMyWindCompassPanel(){
         return myWindCompassPanel;
     }
+    /**
+     * Get method for rain graph panel
+     * @return rain graph panel
+     */
     public GraphPanel getMyGraphPanel(){
         return myGraphPanel;
     }
+    /**
+     * Get method for weather panel
+     * @return weather panel
+     */
     public WeatherPanel getMyWeatherPanel() {
         return myWeatherPanel;
     }
+    /**
+     * Get method for data panel
+     * @return data panel
+     */
     public DataPanel getMyDataPanel() {
         return myDataPanel;
     }
+    /**
+     * Get method for buttons panel
+     * @return buttons panel
+     */
     public ButtonPanel getMyButtonPanel(){
         return myButtonPanel;
     }
+    /**
+     * Get method for message panel
+     * @return message panel
+     */
     public MessagePanel getMyMessagePanel(){
         return myMessagePanel;
     }
