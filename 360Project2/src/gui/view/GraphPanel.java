@@ -1,15 +1,15 @@
 package gui.view;
 
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class GraphPanel extends JPanel implements Connect {
     private static final Color GRID = Color.gray;
 
     /** Color for graph line. */
-    private static final Color GRAPH = new Color(71, 160, 255);
+    private static final Color GRAPH = new Color(0, 123, 255);
 
     /** Padding for whole GraphPannel. */
     private static final int PADDING = 15;
@@ -55,7 +55,7 @@ public class GraphPanel extends JPanel implements Connect {
     private List<Double> myData = new ArrayList<>(10);
 
     /** Translated data to points. */
-    private List<Point> myDataPoints = new ArrayList<>();
+    private List<Ellipse2D> myPoints = new ArrayList<>();
 
     /* Min data value. */
     private double myMin = 0;
@@ -93,37 +93,46 @@ public class GraphPanel extends JPanel implements Connect {
         myGraphWidth = this.getWidth() - 2 * PADDING - LABEL_PADDING;
         myGraphHeight = this.getHeight() - 3 * LABEL_PADDING - 3 * PADDING;
 
-        if (toErase) {
-            
-            g2.clearRect(PADDING, PADDING + LABEL_PADDING, myGraphWidth + LABEL_PADDING, myGraphHeight + LABEL_PADDING);
-            
-            createAxesGrid(g2);
-            addLabels(g2);
+        this.removeAll();
+        createPoints(g2);
+        createAxesGrid(g2);
+        drawPoints(g2);   
+        addLabels(g2);   
 
-        } else {
-            createPoints(g2);
-            createAxesGrid(g2);
-            connectPoints(g2);           
+    }          
+
+
+    /**
+     * Calculates the x and y position of the Points to be drawn. 
+     * Takes into consideration scaling and margin of error for visual accuracy.
+     * @param g2 Graphics2D component used to draw with
+     */
+    private void createPoints(Graphics2D g2) {
+
+        double xScale = (myGraphWidth) / (myData.size() - 1);
+        double yScale = (myGraphHeight) / 42; //42 is the y axis max value 
+        final int marginOfError = 6;
+        final int pointWidth = 6;
+
+        for (int i = 0; i < myData.size(); i++) {
+            double x = i * xScale + PADDING + LABEL_PADDING + 2;
+            double y = this.getHeight() - 2 * PADDING - 2*LABEL_PADDING - myData.get(i) * yScale;
+            if (myData.get(i) > 0.0)
+                y -= marginOfError;
+            
+            Ellipse2D point = new Ellipse2D.Double(x - pointWidth/2, y - pointWidth/2, pointWidth, pointWidth);
+            myPoints.add(point);
         }
 
     }
 
-    private void createPoints(Graphics2D g2) { 
-        if (!toErase) {            
-            double xScale = (myGraphWidth) / (myData.size() - 1);
-            double yScale = (myGraphHeight) / 42; //42 is the y axis max value 
-            final int marginOfError = 6;
-
-            for (int i = 0; i < myData.size(); i++) {
-                int x = (int) (i * xScale + PADDING + LABEL_PADDING);
-                int y = (this.getHeight() - 2 * PADDING - 2*LABEL_PADDING) - (int) (myData.get(i) * yScale) ;
-                if (myData.get(i) > 0.0)
-                    y -= marginOfError;
-                myDataPoints.add(new Point(x, y));
-            }
-        }
+    private void drawPoints(Graphics2D g2) { 
+        g2.setColor(GRAPH);                      
+                
+        for (Ellipse2D e : myPoints) {           
+            g2.fill(e);
+        }  
     }
-
 
     private void createAxesGrid(Graphics2D g2) {
         g2.setColor(LINE);
@@ -185,15 +194,6 @@ public class GraphPanel extends JPanel implements Connect {
         }
     }
 
-    private void connectPoints(Graphics2D g2) { 
-
-        g2.setColor(GRAPH);           
-        g2.setStroke(new BasicStroke(2f));
-
-        for (int i = 0; i < myDataPoints.size() - 1; i++) {
-            g2.drawLine(myDataPoints.get(i).x, myDataPoints.get(i).y, myDataPoints.get(i+1).x, myDataPoints.get(i+1).y);
-        }  
-    }
 
     private void addLabels(Graphics2D g2) {
         g2.setColor(LINE);
@@ -221,20 +221,27 @@ public class GraphPanel extends JPanel implements Connect {
     }
 
     private void determineMinMax() {
-        for (double d : myData) {
-            if (d < myMin) 
-                myMin = d;
-            if (d > myMax)
-                myMax = d;
+        myMin = myData.get(0);
+        myMax = myData.get(0);
+        
+        for (int i = 0; i < myData.size(); i++) {
+            if (myData.get(i) < myMin)
+                myMin = myData.get(i);
+            if (myData.get(i) > myMax)
+                myMax = myData.get(i);           
         }
     }
 
     @Override
     public void changeDisplay(String data, String value) {
         if (data.equals("Rain graph")) {
-            toErase = true;
-            this.repaint();
 
+            myMin = 0;
+            myMax = 0;
+
+            myPoints.clear();
+            this.repaint();
+            
             try {
                 String[] split = value.split(", ");
                 for (int i = 0; i < split.length; i++) {
@@ -244,9 +251,8 @@ public class GraphPanel extends JPanel implements Connect {
             } catch(NumberFormatException theNFE) {
                 System.out.println("Problem parsing String to double. Location: GraphPanel, changeDisplay(String data, String value)");     
             }
-
-            toErase = false;
-            this.repaint();            
+           
+            this.repaint();
         }
     }
 
