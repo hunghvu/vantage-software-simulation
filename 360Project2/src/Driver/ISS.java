@@ -52,6 +52,11 @@ public class ISS implements Serializable, Runnable{
 	private Queue<Double> myRainDataPoint;
 	
 	/**
+	 * A boolean to determine whether or not the sensors are started on own thread.
+	 */
+	private boolean myThreadStart = false;
+	
+	/**
 	 * Constructor for the class
 	 * @throws IOException is thrown if there is no data receiving to the ISS device
 	 */
@@ -121,10 +126,22 @@ public class ISS implements Serializable, Runnable{
 		for(Sensor s : mySensors) {
 			myThreads.add(new Thread(s));
 		}
-		// call start() on each threads
-		for(Thread t : myThreads) {
-			t.start();
-		}
+	}
+	
+	/**
+	 * Getter for myDataMap.
+	 * @return myDataMap.
+	 */
+	public Map<String, String> getDataMap(){
+		return myDataMap;
+	}
+	
+	/**
+	 * Getter for mySensors.
+	 * @return mySensors.
+	 */
+	public List<Sensor> getSensors(){
+		return mySensors;
 	}
 	
 	/**
@@ -140,7 +157,7 @@ public class ISS implements Serializable, Runnable{
 				myDataMap.replace("Temp in: ", s.getDataTwo());
 				double windChill = Double.parseDouble(s.getDataOne()) - (RANDOM.nextInt(66) + 15);
 				windChill = Math.round(windChill * 100.0) / 100.0;
-				myDataMap.put("Wind chill: ", String.valueOf(windChill));
+				myDataMap.replace("Wind chill: ", String.valueOf(windChill));
 			} else if(s.toString().equals("Humidity Sensor")) {
 				myDataMap.replace("Hum out: ", s.getDataOne());
 				myDataMap.replace("Hum in: ", s.getDataTwo());
@@ -184,12 +201,18 @@ public class ISS implements Serializable, Runnable{
 	 */
 	@Override
 	public void run() {
+		if (myThreadStart == false) {
+			// call start() on each threads
+			for(Thread t : myThreads) {
+				t.start();
+			}
+			myThreadStart = true;
+		}
 		try {
 			updateMap();
 			writeSerializedData();
 			// for testing
 			printSensorsInfo();
-			
 			Thread.sleep(3000L);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

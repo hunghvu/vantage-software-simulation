@@ -35,8 +35,10 @@ public class WindDirectionSensor implements Sensor{
 	
 	@Override
 	public void updateData() {
-
 		myData += RANDOM.nextInt(3) - 1;
+		if(myData == -1) {
+			myData = 7;
+		}
 		myData = myData % 8;
 		updateDirection();
 	}
