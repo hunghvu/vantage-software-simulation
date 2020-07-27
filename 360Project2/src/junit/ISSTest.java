@@ -14,7 +14,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import Driver.ISS;
+import iss.IssSoftware;
 import sensors.Sensor;
 
 /**
@@ -30,9 +30,9 @@ public class ISSTest {
 	 */
 	@Test
 	public void testIssConstructor() throws IOException {
-		ISS iss = new ISS();
+		IssSoftware iss = new IssSoftware();
 		for(int i = 0; i < 60; i++) {
-			iss = new ISS();
+			iss = new IssSoftware();
 		}
 		List<Sensor> sensors = iss.getSensors();
 		
@@ -78,7 +78,7 @@ public class ISSTest {
 	 */
 	@Test
 	public void testRun() throws IOException {
-		final ISS iss = new ISS();
+		final IssSoftware iss = new IssSoftware();
 		Thread thread = new Thread(iss);
 		thread.start();
 		List<Sensor> sensors = iss.getSensors();
@@ -111,7 +111,7 @@ public class ISSTest {
 	 */
 	@Test
 	public void testWriteSerializedData() throws IOException {
-		final ISS iss = new ISS();
+		final IssSoftware iss = new IssSoftware();
 		Thread thread = new Thread(iss);
 		thread.start();
 		try {

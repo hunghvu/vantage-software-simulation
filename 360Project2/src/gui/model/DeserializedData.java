@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 
-//Checkstyle and PMD: done - Hung Vu.
+//Refactoring, checkstyle and PMD: done - Hung Vu.
 /**
  * This class contains weather data after deserialization process.
  * 

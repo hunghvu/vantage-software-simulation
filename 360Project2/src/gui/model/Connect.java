@@ -1,6 +1,6 @@
 package gui.model;
 
-//Checkstyle and PMD: done - Hung Vu.
+//Refactoring, checkstyle and PMD: done - Hung Vu.
 /**
  * An interface with method(s) that facilitates updates between the Controller
  * and GUI components.

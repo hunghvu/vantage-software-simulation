@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-//Checkstyle and PMD: done - Hung Vu.
+//Refactoring, checkstyle and PMD: done - Hung Vu.
 /**
  * This class changes the GUI based on given weather data.
  * 
@@ -97,59 +97,57 @@ public class Controller implements Observer, Runnable {
       // Pass the values to their respective places.
       for (final Map.Entry<String, String> entry : DESERIALIZED_DATA.getData().entrySet()) {
 
-        if (entry.getKey().equals("Temp in")) {
+        if ("Temp in".equals(entry.getKey())) {
 
           myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
 
-        } else if (entry.getKey().equals("Baro pressure")) {
+        } else if ("Baro pressure".equals(entry.getKey())) {
 
           myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
 
-        } else if (entry.getKey().equals("Baro trend")) {
+        } else if ("Baro trend".equals(entry.getKey())) {
 
           myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
 
-        } else if (entry.getKey().equals("Temp out")) {
+        } else if ("Temp out".equals(entry.getKey())) {
 
           myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
 
-        } else if (entry.getKey().equals("Station number")) {
+        } else if ("Station number".equals(entry.getKey())) {
 
           myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
 
-        } else if (entry.getKey().equals("Wind direction")) {
+        } else if ("Wind direction".equals(entry.getKey())) {
 
           myFrame.getMyWindCompassPanel().changeDisplay(entry.getKey(), entry.getValue());
 
-        } else if (entry.getKey().equals("Rain")) {
+        } else if ("Rain".equals(entry.getKey())) {
 
           myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
 
-        } else if (entry.getKey().equals("Wind speed")) {
+        } else if ("Wind speed".equals(entry.getKey())) {
 
           myFrame.getMyWindCompassPanel().changeDisplay(entry.getKey(), entry.getValue());
 
-        } else if (entry.getKey().equals("Rain rate")) {
+        } else if ("Rain rate".equals(entry.getKey())) {
 
           myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
 
-        } else if (entry.getKey().equals("Hum out")) {
+        } else if ("Hum out".equals(entry.getKey())) {
 
           myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
 
-        } else if (entry.getKey().equals("Wind chill")) {
+        } else if ("Wind chill".equals(entry.getKey())) {
 
           myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
 
-        } else if (entry.getKey().equals("Hum in")) {
+        } else if ("Hum in".equals(entry.getKey())) {
 
           myFrame.getMyDataPanel().changeDisplay(entry.getKey(), entry.getValue());
 
-        } else if (entry.getKey().equals("Rain graph")) {
+        } else if ("Rain graph".equals(entry.getKey())) {
 
           myFrame.getMyGraphPanel().changeDisplay(entry.getKey(), entry.getValue());
-          // Haven't implemented (07-24)
-          // Not working (07-26)
 
         }
 
