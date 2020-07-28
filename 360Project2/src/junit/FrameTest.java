@@ -14,25 +14,23 @@ import gui.view.Frame;
  * @version Jul 27, 2020
  */
 class FrameTest {
-    
-    /** Object for setting up. */
-    private Frame myFrame;
-    
-    @BeforeEach
-    void setUp() throws Exception {
-        myFrame = new Frame();
-    }
 
-    @Test
-    void testPanelsExist() {
-        assertNotNull(myFrame.getMyButtonPanel());
-        assertNotNull(myFrame.getMyDataPanel());
-        assertNotNull(myFrame.getMyGraphPanel());
-        assertNotNull(myFrame.getMyMessagePanel());
-        assertNotNull(myFrame.getMyWeatherPanel());
-        assertNotNull(myFrame.getMyWindCompassPanel());
-    }
-    
-    
+  /** Object for setting up. */
+  private Frame myFrame;
+
+  @BeforeEach
+  void setUp() throws Exception {
+    myFrame = new Frame();
+  }
+
+  @Test
+  void testPanelsExist() {
+    assertNotNull(myFrame.getMyButtonPanel());
+    assertNotNull(myFrame.getMyDataPanel());
+    assertNotNull(myFrame.getMyGraphPanel());
+    assertNotNull(myFrame.getMyMessagePanel());
+    assertNotNull(myFrame.getMyWeatherPanel());
+    assertNotNull(myFrame.getMyWindCompassPanel());
+  }
 
 }
