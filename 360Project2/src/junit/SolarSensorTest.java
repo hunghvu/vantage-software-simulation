@@ -21,7 +21,7 @@ class SolarSensorTest {
 	/**test toString method*/
 	@Test
 	void testToString() {
-		assertEquals(SStest.toString(), "Solar Radiation Sensor");
+		assertEquals(SStest.toString(), "Solar Radiation Sensor", "Solar radiation sensor toString method is not working");
 	}
 	
 	/**test data of the sensor*/
@@ -29,13 +29,15 @@ class SolarSensorTest {
 	void testUpdateData() {
 		for(int i = 0; i < 100000; i ++) {
 			//check if data is within the range
-			assertTrue(0.00 <= Double.valueOf(SStest.getDataOne()));
-			assertNull(SStest.getDataTwo());
+			assertTrue("Solar sensor's watt is below 0",
+				   0.00 <= Double.valueOf(SStest.getDataOne()));
+			assertNull("Solar second data is not null", SStest.getDataTwo());
 			//update the data
 			SStest.updateData();
 			//check again if data is within the range
-			assertTrue(0.00 <= Double.valueOf(SStest.getDataOne()));
-			assertNull(SStest.getDataTwo());
+			assertTrue("Solar sensor's watt is below 0", 
+				   0.00 <= Double.valueOf(SStest.getDataOne()));
+			assertNull("Solar second data is not null", SStest.getDataTwo());
 		}
 	}
 	
