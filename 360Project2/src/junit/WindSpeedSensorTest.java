@@ -21,7 +21,7 @@ class WindSpeedSensorTest {
 	/**test toString method*/
 	@Test
 	void testToString() {
-		assertEquals(WStest.toString(), "Wind Speed Sensor");
+		assertEquals(WStest.toString(), "Wind Speed Sensor", "Wind Speed Sensor's toString method is not working");
 	}
 
 	/**test data of the sensor*/
@@ -29,13 +29,17 @@ class WindSpeedSensorTest {
 	void testUpdateData() {
 		for(int i = 0; i < 10000; i ++) {
 			//check if data is within the range
-			assertTrue(0.00 <= Double.valueOf(WStest.getDataOne()) && Double.valueOf(WStest.getDataOne()) <= 200.00);
-			assertTrue(-110.00 <= Double.valueOf(WStest.getDataTwo()) && Double.valueOf(WStest.getDataTwo()) <= 135.00);
+			assertTrue("Wind speed is not between 0 to 200",
+				0.00 <= Double.valueOf(WStest.getDataOne()) && Double.valueOf(WStest.getDataOne()) <= 200.00);
+			assertTrue("Chillyness is not between -110 to 135",
+				-110.00 <= Double.valueOf(WStest.getDataTwo()) && Double.valueOf(WStest.getDataTwo()) <= 135.00);
 			//update the data
 			WStest.updateData();
 			//check again if data is within the range
-			assertTrue(0.00 <= Double.valueOf(WStest.getDataOne()) && Double.valueOf(WStest.getDataOne()) <= 200.00);
-			assertTrue(-110.00 <= Double.valueOf(WStest.getDataTwo()) && Double.valueOf(WStest.getDataTwo()) <= 135.00);
+			assertTrue("Wind speed is not between 0 to 200",
+				   0.00 <= Double.valueOf(WStest.getDataOne()) && Double.valueOf(WStest.getDataOne()) <= 200.00);
+			assertTrue("Chillyness is not between -110 to 135",
+				   -110.00 <= Double.valueOf(WStest.getDataTwo()) && Double.valueOf(WStest.getDataTwo()) <= 135.00);
 		}
 	}
 
