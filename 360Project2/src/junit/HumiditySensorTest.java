@@ -20,8 +20,7 @@ class HumiditySensorTest {
 	/**test toString method*/
 	@Test
 	void testToString() {
-		assertEquals("Humidity sensor is not able to call right toString method",
-			     HStest.toString(), "Humidity Sensor");
+		assertEquals(HStest.toString(), "Humidity Sensor", "Humidity sensor is not able to call right toString method");
 	}
 	
 	/**test data of the sensor*/
