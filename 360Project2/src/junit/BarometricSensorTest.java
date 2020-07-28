@@ -24,8 +24,7 @@ class BarometricSensorTest {
   /** test toString method **/
   @Test
   void testToString() {
-    assertEquals("There is something wrong with Barometric Sensor toString method",
-                 baroTest.toString(), "Barometric Sensor");
+    assertEquals(baroTest.toString(), "Barometric Sensor", "There is something wrong with Barometric Sensor toString method");
   }
 
   /** test data of the sensor. **/
