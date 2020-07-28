@@ -1,59 +1,66 @@
 package sensors;
 
-import sensors.Sensor;
+//Refactoring, checkstyle and PMD: done - Hung Vu.
 /**
  * Sensor to detect Rain.
+ * 
  * @author Zitao Yu
  *
  */
-public class SolarSensor implements Sensor{
-	
-	/** Watts for solar sensor. **/
-	private double myWatts;
-	
-	/**
-	 * Constructor.
-	 */
-	public SolarSensor() {
-		myWatts = RANDOM.nextInt(1801);
-		myWatts += RANDOM.nextDouble();
-		myWatts = Math.round(myWatts * 100.0) / 100.0;
-	}
+@SuppressWarnings({
+  
+    "PMD.SystemPrintln", "PMD.BeanMembersShouldSerialize", 
 
-	@Override
-	public String getDataOne() {
-		return String.valueOf(myWatts);
-	}
+})
+public class SolarSensor implements Sensor {
 
-	@Override
-	public void updateData() {
-		myWatts += RANDOM.nextInt(41) - 19;
-		myWatts += RANDOM.nextDouble();
-		myWatts = Math.round(myWatts * 100.0) / 100.0;
-	}
+  /** Watts for solar sensor. **/
+  private double myWatts;
 
-	@Override
-	public String toString() {
-		return "Solar Radiation Sensor";
-	}
-	
-	@Override
-	public void run() {
-		updateData();
-		try {
-			Thread.sleep(3000L);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.run();
-	}
+  /**
+   * Constructor.
+   */
+  public SolarSensor() {
+    myWatts = RANDOM.nextInt(1801);
+    myWatts += RANDOM.nextDouble();
+    myWatts = Math.round(myWatts * 100.0) / 100.0;
+  }
 
-	@Override
-	public String getDataTwo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+  @Override
+  public String getDataOne() {
+    return String.valueOf(myWatts);
+  }
+
+  @Override
+  public void updateData() {
+    myWatts += RANDOM.nextInt(41) - 19;
+    myWatts += RANDOM.nextDouble();
+    myWatts = Math.round(myWatts * 100.0) / 100.0;
+  }
+
+  @Override
+  public String toString() {
+    return "Solar Radiation Sensor";
+  }
+
+  @Override
+  public void run() {
+    updateData();
+    try {
+      Thread.sleep(3000L);
+    } catch (InterruptedException e) {
+      
+      System.out.println("Interrupted Exception in SolarSensor. Destructive error.");
+      
+    }
+    this.run();
+  }
+
+  @Override
+  public String getDataTwo() {
+    
+    return null;
+    
+  }
 
 }
