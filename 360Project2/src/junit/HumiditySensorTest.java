@@ -25,12 +25,12 @@ class HumiditySensorTest {
   /** test data of the sensor */
   @Test
   void testUpdateData() {
+	// check if data is within the range
+    assertTrue(0.00 <= Double.valueOf(HStest.getDataOne()) && Double.valueOf(HStest.getDataOne()) <= 100.00,
+        "Humidity out is not within the range of the sensor");
+    assertTrue(40.00 <= Double.valueOf(HStest.getDataTwo()) && Double.valueOf(HStest.getDataTwo()) <= 50.00,
+        "Humidity in is not within the range of the sensor");
     for (int i = 0; i < 100000; i++) {
-      // check if data is within the range
-      assertTrue(0.00 <= Double.valueOf(HStest.getDataOne()) && Double.valueOf(HStest.getDataOne()) <= 100.00,
-          "Humidity out is not within the range of the sensor");
-      assertTrue(40.00 <= Double.valueOf(HStest.getDataTwo()) && Double.valueOf(HStest.getDataTwo()) <= 50.00,
-          "Humidity in is not within the range of the sensor");
       // update the data
       HStest.updateData();
       // check again if data is within the range
@@ -44,8 +44,20 @@ class HumiditySensorTest {
   /** test running method */
   @Test
   void testRun() throws InterruptedException {
-    Thread thread = new Thread(HStest);
-    thread.start();
-    Thread.sleep(3000L);
+    String dataOne = HStest.getDataOne();
+    String dataTwo = HStest.getDataTwo();
+		
+	Thread thread = new Thread(HStest);
+	thread.start();
+	Thread.sleep(1000L);
+	    
+	// test if data is updated
+	assertFalse(dataOne.equals(HStest.getDataOne()), "Hum out have not updated.");
+	assertFalse(dataTwo.equals(HStest.getDataOne()), "Hum in have not updated.");
+	    
+	assertTrue(0.00 <= Double.valueOf(HStest.getDataOne()) && Double.valueOf(HStest.getDataOne()) <= 100.00,
+	    "Updated hum out is not within the range of the sensor");
+	assertTrue(40.00 <= Double.valueOf(HStest.getDataTwo()) && Double.valueOf(HStest.getDataTwo()) <= 50.00,
+	    "Updated hum in is not within the range of the sensor");
   }
 }

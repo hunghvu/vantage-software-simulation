@@ -40,8 +40,16 @@ class SolarSensorTest {
   /** test running method */
   @Test
   void testRun() throws InterruptedException {
+	String dataOne = SStest.getDataOne();
+	
     Thread thread = new Thread(SStest);
     thread.start();
-    Thread.sleep(3000L);
+    Thread.sleep(1000L);
+    
+    // test if data is updated
+    assertFalse(dataOne.equals(SStest.getDataOne()), "Temp out have not updated.");
+    
+    assertTrue(0.00 <= Double.valueOf(SStest.getDataOne()) && Double.valueOf(SStest.getDataOne()) <= 1800
+    	, "Solar sensor's watt is below 0");
   }
 }

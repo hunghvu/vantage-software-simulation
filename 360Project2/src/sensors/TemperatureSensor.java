@@ -43,14 +43,6 @@ public class TemperatureSensor implements Sensor {
     return String.valueOf(myTempIn);
   }
   
-  /**
-   * Return inside temperature.
-   * @return inside temperature.
-   */
-  public double getTempIn() {
-    return myTempIn;
-  }
-
   @Override
   public void updateData() {
     myTempOut += RANDOM.nextInt(5) - 1;

@@ -174,19 +174,33 @@ public class ISSTest {
     }
 
     // test if two map have the same data
-    assertTrue(dataMap.get("Wind direction: ").equals(deserializedMap.get("Wind direction")));
-    assertTrue(dataMap.get("Wind speed: ").equals(deserializedMap.get("Wind speed")));
-    assertTrue(dataMap.get("Sunrise time: ").equals(deserializedMap.get("Sunrise time")));
-    assertTrue(dataMap.get("Baro pressure: ").equals(deserializedMap.get("Baro pressure")));
-    assertTrue(dataMap.get("Baro trend: ").equals(deserializedMap.get("Baro trend")));
-    assertTrue(dataMap.get("Wind chill: ").equals(deserializedMap.get("Wind chill")));
-    assertTrue(dataMap.get("Temp in: ").equals(deserializedMap.get("Temp in")));
-    assertTrue(dataMap.get("Temp out: ").equals(deserializedMap.get("Temp out")));
-    assertTrue(dataMap.get("Hum in: ").equals(deserializedMap.get("Hum in")));
-    assertTrue(dataMap.get("Hum out: ").equals(deserializedMap.get("Hum out")));
-    assertTrue(dataMap.get("Rain rate: ").equals(deserializedMap.get("Rain rate")));
-    assertTrue(dataMap.get("Rain: ").equals(deserializedMap.get("Rain")));
-    assertTrue(dataMap.get("Station number: ").equals(deserializedMap.get("Station number")));
-    assertTrue(dataMap.get("Rain graph: ").equals(deserializedMap.get("Rain graph")));
+    assertTrue(dataMap.get("Wind direction: ").equals(deserializedMap.get("Wind direction"))
+    	, "Wind direction data did not serialize correctly.");
+    assertTrue(dataMap.get("Wind speed: ").equals(deserializedMap.get("Wind speed"))
+    	, "Wind speed data did not serialize correctly.");
+    assertTrue(dataMap.get("Sunrise time: ").equals(deserializedMap.get("Sunrise time"))
+        , "Sunrise data did not serialize correctly.");
+    assertTrue(dataMap.get("Baro pressure: ").equals(deserializedMap.get("Baro pressure"))
+       	, "Baro pressure data did not serialize correctly.");
+    assertTrue(dataMap.get("Baro trend: ").equals(deserializedMap.get("Baro trend"))
+       	, "Baro trend data did not serialize correctly.");
+    assertTrue(dataMap.get("Wind chill: ").equals(deserializedMap.get("Wind chill"))
+       	, "Wind chill data did not serialize correctly.");
+    assertTrue(dataMap.get("Temp in: ").equals(deserializedMap.get("Temp in"))
+       	, "Temp in data did not serialize correctly.");
+    assertTrue(dataMap.get("Temp out: ").equals(deserializedMap.get("Temp out"))
+       	, "Temp out data did not serialize correctly.");
+    assertTrue(dataMap.get("Hum in: ").equals(deserializedMap.get("Hum in"))
+       	, "Hum in data did not serialize correctly.");
+    assertTrue(dataMap.get("Hum out: ").equals(deserializedMap.get("Hum out"))
+       	, "Hum out data did not serialize correctly.");
+    assertTrue(dataMap.get("Rain rate: ").equals(deserializedMap.get("Rain rate"))
+       	, "Rain rate data did not serialize correctly.");
+    assertTrue(dataMap.get("Rain: ").equals(deserializedMap.get("Rain"))
+       	, "Rain fall data did not serialize correctly.");
+    assertTrue(dataMap.get("Station number: ").equals(deserializedMap.get("Station number"))
+       	, "Station number data did not serialize correctly.");
+    assertTrue(dataMap.get("Rain graph: ").equals(deserializedMap.get("Rain graph"))
+       	, "Rain graph data did not serialize correctly.");
   }
 }
