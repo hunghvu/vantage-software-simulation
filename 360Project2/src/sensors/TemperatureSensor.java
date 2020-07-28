@@ -28,7 +28,7 @@ public class TemperatureSensor implements Sensor {
     myTempOut = RANDOM.nextInt(191) - 40;
     myTempOut += RANDOM.nextDouble();
     myTempOut = Math.round(myTempOut * 100.0) / 100.0;
-    myTempIn = RANDOM.nextInt(9) + 68;
+    myTempIn = RANDOM.nextInt(8) + 68;
     myTempIn += RANDOM.nextDouble();
     myTempIn = Math.round(myTempIn * 100.0) / 100.0;
   }

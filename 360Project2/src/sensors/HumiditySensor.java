@@ -28,7 +28,7 @@ public class HumiditySensor implements Sensor {
     myHumOut = RANDOM.nextInt(100) + 1;
     myHumOut += RANDOM.nextDouble();
     myHumOut = Math.round(myHumOut * 100.0) / 100.0;
-    myHumIn = RANDOM.nextInt(11) + 40;
+    myHumIn = RANDOM.nextInt(10) + 40;
     myHumIn += RANDOM.nextDouble();
     myHumIn = Math.round(myHumIn * 100.0) / 100.0;
   }
