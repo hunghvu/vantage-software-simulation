@@ -117,14 +117,14 @@ public class GraphPanel extends JPanel implements Connect {
     for (int i = 0; i < myData.size(); i++) {
       final double xDraw = i * xScale + PADDING + LABEL_PADDING + 2;
 
-      double y1 = this.getHeight() - 2 * PADDING - 2 * LABEL_PADDING - myData.get(i) * yScale;
+      double y11 = this.getHeight() - 2 * PADDING - 2 * LABEL_PADDING - myData.get(i) * yScale;
 
       if (myData.get(i) > 0.0) {
-        y1 -= marginOfError;
+        y11 -= marginOfError;
       }
 
       final Ellipse2D point = new Ellipse2D.Double(
-          xDraw - pointWidth / 2, y1 - pointWidth / 2, pointWidth, pointWidth);
+          xDraw - pointWidth / 2, y11 - pointWidth / 2, pointWidth, pointWidth);
       myPoints.add(point);
     }
 
