@@ -20,7 +20,7 @@ class RainSensorTest {
 	/**test toString method*/
 	@Test
 	void testToString() {
-		assertEquals(RStest.toString(), "Rain Sensor");
+		assertEquals(RStest.toString(), "Rain Sensor", "Rain Sensor toString method is not working");
 	}
 	
 	/**test data of the sensor*/
@@ -28,13 +28,17 @@ class RainSensorTest {
 	void testUpdateData() {
 		for(int i = 0; i < 100000; i ++) {
 			//check if data is within the range
-			assertTrue(0.00 <= Double.valueOf(RStest.getDataOne()) && Double.valueOf(RStest.getDataOne()) <= 30.00);
-			assertTrue(0.00 <= Double.valueOf(RStest.getDataTwo()) && Double.valueOf(RStest.getDataTwo()) <= 99.99);
+			assertTrue("Rain rate is not withing in the range of 0 to 30",
+				0.00 <= Double.valueOf(RStest.getDataOne()) && Double.valueOf(RStest.getDataOne()) <= 30.00);
+			assertTrue("Rain falling meter is not within range of 0 to 99.99",
+				0.00 <= Double.valueOf(RStest.getDataTwo()) && Double.valueOf(RStest.getDataTwo()) <= 99.99);
 			//update the data
 			RStest.updateData();
 			//check again if data is within the range
-			assertTrue(0.00 <= Double.valueOf(RStest.getDataOne()) && Double.valueOf(RStest.getDataOne()) <= 30.00);
-			assertTrue(0.00 <= Double.valueOf(RStest.getDataTwo()) && Double.valueOf(RStest.getDataTwo()) <= 99.99);
+			assertTrue("Rain rate is not withing in the range of 0 to 30",
+				   0.00 <= Double.valueOf(RStest.getDataOne()) && Double.valueOf(RStest.getDataOne()) <= 30.00);
+			assertTrue("Rain falling meter is not within range of 0 to 99.99",
+				   0.00 <= Double.valueOf(RStest.getDataTwo()) && Double.valueOf(RStest.getDataTwo()) <= 99.99);
 		}
 	}
 	
