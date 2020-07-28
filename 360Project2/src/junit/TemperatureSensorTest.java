@@ -20,7 +20,7 @@ class TemperatureSensorTest {
 	/**test toString method*/
 	@Test
 	void testToString() {
-		assertEquals(TStest.toString(), "Temperature Sensor");
+		assertEquals(TStest.toString(), "Temperature Sensor", "Temperature Sensor toString methods is not working");
 	}
 
 	/**test data of the sensor*/
@@ -28,15 +28,21 @@ class TemperatureSensorTest {
 	void testUpdateData() {
 		for(int i = 0; i < 10000; i ++) {
 			//check if data is within the range
-			assertTrue(-40.00 <= Double.valueOf(TStest.getDataOne()) && Double.valueOf(TStest.getDataOne()) <= 150.00);
-			assertTrue(68.00 <= Double.valueOf(TStest.getDataTwo()) && Double.valueOf(TStest.getDataTwo()) <= 76.00);
-			assertTrue(68.00 <= TStest.getTempIn() && TStest.getTempIn() <= 76.00);
+			assertTrue("Temperature out data is not within the range of -40 to 150",
+				-40.00 <= Double.valueOf(TStest.getDataOne()) && Double.valueOf(TStest.getDataOne()) <= 150.00);
+			assertTrue("Temperature in data is not within the range of 68 to 76",
+				68.00 <= Double.valueOf(TStest.getDataTwo()) && Double.valueOf(TStest.getDataTwo()) <= 76.00);
+			assertTrue("Temperature in data is not within the range of 68 to 76",
+				68.00 <= TStest.getTempIn() && TStest.getTempIn() <= 76.00);
 			//update the data
 			TStest.updateData();
 			//check again if data is within the range
-			assertTrue(-40.00 <= Double.valueOf(TStest.getDataOne()) && Double.valueOf(TStest.getDataOne()) <= 150.00);
-			assertTrue(68.00 <= Double.valueOf(TStest.getDataTwo()) && Double.valueOf(TStest.getDataTwo()) <= 76.00);
-			assertTrue(68.00 <= TStest.getTempIn() && TStest.getTempIn() <= 76.00);
+			assertTrue("Temperature out data is not within the range of -40 to 150",
+				-40.00 <= Double.valueOf(TStest.getDataOne()) && Double.valueOf(TStest.getDataOne()) <= 150.00);
+			assertTrue("Temperature in data is not within the range of 68 to 76",
+				   68.00 <= Double.valueOf(TStest.getDataTwo()) && Double.valueOf(TStest.getDataTwo()) <= 76.00);
+			assertTrue("Temperature in data is not within the range of 68 to 76",
+				   68.00 <= TStest.getTempIn() && TStest.getTempIn() <= 76.00);
 		}
 	}
 
