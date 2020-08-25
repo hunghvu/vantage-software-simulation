@@ -1,5 +1,8 @@
 # MEETING LOG
 
+## [07-27-2020]
+- Complete and submit the project.
+
 ## [07-24-2020]
 - **Done**
 	- Threaded implementation for all components.
