@@ -5,9 +5,10 @@
 
 ## GUI demo
 - Default console's GUI.
-![](https://github.com/hunghvu/Vantage-software-simulation/blob/master/gui-demo/default-gui.PNG)
+<img src = "gui-demo/default-gui.PNG" alt = "gui-demo/default-gui.PNG">
+
 - Console's GUI with secondary buttons and different unit presentation.
-![](https://github.com/hunghvu/Vantage-software-simulation/blob/master/gui-demo/unit-and-buttons-change.PNG)
+<img src = "gui-demo/unit-and-buttons-change.PNG" alt = "gui-demo/unit-and-buttons-change.PNG">
 
 ## Supported platforms
 - Theoretically, this should run on any platform that is compatible with JVM. However, we only use "PC" OS (mainly Windows, macOS) during the development process. It should work properly on "PC" OS.
